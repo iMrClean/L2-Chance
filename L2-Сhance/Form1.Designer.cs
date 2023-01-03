@@ -32,7 +32,7 @@
             this.currentLevel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.SuspendLayout();
+            this.SuspendLayout(); 
             // 
             // ModificationButton
             // 

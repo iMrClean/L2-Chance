@@ -23,7 +23,7 @@ namespace L2_Сhance
             InitializeComponent();
             modificationService = new ModificationService(itemRepository);
             itemRepository.EnchanceLevel += EnchanceLevelHandler;
-            modificationService.LogEvent += LogEventHandler;
+            modificationService.LogEvent += LogEventHandler; 
         }
 
         private void ModificationButton_Click(object sender, EventArgs e)

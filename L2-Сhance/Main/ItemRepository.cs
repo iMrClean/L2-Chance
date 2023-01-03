@@ -27,7 +27,7 @@ namespace L2_Сhance.Main
             dbItem.EnchanceLevel = ++item.EnchanceLevel;
             int value = item.EnchantChance = GetCurrentChance(item.EnchanceLevel);
             dbItem.EnchantChance = value;
-            UpdateEnchanceLevel();
+            UpdateEnchanceLevel(); 
         }
 
         public void RemoveItem(Item item)

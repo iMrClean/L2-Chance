@@ -63,6 +63,7 @@ namespace L2_Сhance.Main.Service
                 UpdateLogEvent(logMessage);
                 itemRepository.RemoveItem(item);
                 ++ItemCount;
+
             }
         }
 
