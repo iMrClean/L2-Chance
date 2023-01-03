@@ -16,7 +16,7 @@ namespace L2_Сhance
 {
     public partial class MainForm : Form
     {
-        private readonly ModificationService modificationService;
+        private readonly List<AbstractService> abstractService = new List<AbstractService>();
 
         private ItemType selectedItemType;
 
@@ -25,42 +25,43 @@ namespace L2_Сhance
         public MainForm()
         {
             InitializeComponent();
-            modificationService = new ModificationService();
-            modificationService.EnchanceLevel += EnchanceLevelHandler;
-            modificationService.LogEvent += LogEventHandler;
+            abstractService.Add(new AccessoryService());
+            abstractService.Add(new WeaponService());
+            abstractService.Add(new ArmorService());
             this.LogEventSelectedItem += LogEventSelectedItemHandler;
         }
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            Item selectedItem = null;
-
-            switch (selectedItemType)
+            AbstractItem selectedItem = null;
+            selectedItem = new Accessory();
+            abstractService.ForEach(service =>
             {
-                case ItemType.UNDEFINED:
-                    MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
-                    break;
-                case ItemType.ACCESSORY:
-                    selectedItem = modificationService.GetItemAccessory();
-                    modificationService.DoMagicAccessory(selectedItem);
-                    break;
-                case ItemType.WEAPON:
-                    //selectedItem = modificationService.GetItemWeapon();
-                    //modificationService.DoMagicWeapon(selectedItem);
-                    break;
-                case ItemType.ARMOR:
-                    //selectedItem = modificationService.GetItemArmor();
-                    //modificationService.DoMagicArmor(selectedItem);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+                switch (selectedItemType)
+                {
+                    case ItemType.UNDEFINED:
+                        MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case ItemType.ACCESSORY:
+                        service.DoMagic(selectedItem);
+                        break;
+                    case ItemType.WEAPON:
+                        service.DoMagic(selectedItem);
+                        break;
+                    case ItemType.ARMOR:
+                        service.DoMagic(selectedItem);
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            });
         }
 
         private void EnchanceLevelHandler(object sender, int curr)
         {
-            
-            if (curr == 0) {
+
+            if (curr == 0)
+            {
                 currentLevel.ForeColor = Color.Green;
             }
             else if (curr > 0 && curr < 4)
@@ -72,17 +73,17 @@ namespace L2_Сhance
             currentLevel.Text = curr.ToString();
         }
 
-        private void LogEventHandler(object sender, string logMessage) 
+        private void LogEventHandler(object sender, string logMessage)
         {
-            if(logMessage.Contains("[Успешно]")) 
+            if (logMessage.Contains("[Успешно]"))
             {
                 logRichTextBox.SelectionColor = Color.Green;
                 logRichTextBox.AppendText(logMessage + "\n");
-            } 
-            else if(logMessage.Contains("[Неуспешно]"))
+            }
+            else if (logMessage.Contains("[Неуспешно]"))
             {
                 logRichTextBox.SelectionColor = Color.Red;
-                logRichTextBox.AppendText(logMessage + " Количество попыток : " + modificationService.ItemCount + "\n");
+                logRichTextBox.AppendText(logMessage + " Количество попыток : " + abstractService[0].ItemCount + "\n");
             }
             logRichTextBox.SelectionStart = logRichTextBox.Text.Length;
             logRichTextBox.ScrollToCaret();
@@ -99,21 +100,18 @@ namespace L2_Сhance
         {
             LogEventSelectedItem?.Invoke(this, "Выбран аксессуар");
             selectedItemType = ItemType.ACCESSORY;
-            modificationService.ResetCount();
         }
 
         private void armorPictureBox_Click(object sender, EventArgs e)
         {
             LogEventSelectedItem?.Invoke(this, "Выбран доспех");
             selectedItemType = ItemType.ARMOR;
-            modificationService.ResetCount();
         }
 
         private void weaponPictureBox_Click(object sender, EventArgs e)
         {
             LogEventSelectedItem?.Invoke(this, "Выбран оружие");
             selectedItemType = ItemType.WEAPON;
-            modificationService.ResetCount();
         }
     }
 }
