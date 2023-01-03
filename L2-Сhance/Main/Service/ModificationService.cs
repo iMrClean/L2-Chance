@@ -66,7 +66,6 @@ namespace L2_Сhance.Main.Service
                 UpdateLogEvent(logMessage);
             }
         }
-
         private void SaveItemAccessory(Item item)
         {
             Item dbItemAccessory = itemRepository.SaveItemAccessory(item);
@@ -78,7 +77,6 @@ namespace L2_Сhance.Main.Service
             Item dbItemAccessory = itemRepository.RemoveItemAccessory(item);
             UpdateEnchanceLevel(dbItemAccessory);
         }
-
         internal void DoMagicWeapon(Item item)
         {
             int currentEnchanceLevel = item.EnchanceLevel;
@@ -139,6 +137,17 @@ namespace L2_Сhance.Main.Service
             }
         }
 
+        private void SaveItemAccessory(Item item)
+        {
+            Item dbItemAccessory = itemRepository.SaveItemAccessory(item);
+            UpdateEnchanceLevel(dbItemAccessory);
+        }
+
+        private void RemoveItemAccessory(Item item)
+        {
+            Item dbItemAccessory = itemRepository.RemoveItemAccessory(item);
+            UpdateEnchanceLevel(dbItemAccessory);
+        }
         private void UpdateLogEvent(string logMessage)
         {
             LogEvent?.Invoke(this, logMessage);
