@@ -53,7 +53,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Enum\ItemType.cs" />
-    <Compile Include="Main\ItemRepository.cs" />
+    <Compile Include="Main\Repository\ItemRepository.cs" />
     <Compile Include="Main\Model\Item.cs" />
     <Compile Include="Main\Service\ModificationService.cs" />
     <Compile Include="Program.cs" />
@@ -87,6 +87,14 @@
   <ItemGroup>
     <None Include="Resources\MainForm.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Accessory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Armor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Weapon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

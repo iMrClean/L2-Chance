@@ -19,30 +19,28 @@ namespace L2_Сhance
 
         private readonly ItemRepository itemRepository = new ItemRepository();
 
+        private Item SelectedItem;
+
+        public event EventHandler<string> LogEventSelectedItem;
+
         public MainForm()
         {
             InitializeComponent();
             modificationService = new ModificationService(itemRepository);
             itemRepository.EnchanceLevel += EnchanceLevelHandler;
-            modificationService.LogEvent += LogEventHandler; 
+            modificationService.LogEvent += LogEventHandler;
+            this.LogEventSelectedItem += LogEventSelectedItemHandler;
         }
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            Item item = itemRepository.GetItemAccessory();
-            modificationService.Process(item);
-        }
+            if (SelectedItem == null) 
+            {
+                MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Item item = itemRepository.GetItemWeapon();
-            modificationService.Process(item);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Item item = itemRepository.GetItemArmor();
-            modificationService.Process(item);
+            modificationService.Process(SelectedItem);
         }
 
         private void EnchanceLevelHandler(object sender, int curr)
@@ -74,6 +72,30 @@ namespace L2_Сhance
             }
             logRichTextBox.SelectionStart = logRichTextBox.Text.Length;
             logRichTextBox.ScrollToCaret();
+        }
+
+        private void LogEventSelectedItemHandler(object sender, string logMessage)
+        {
+            logRichTextBox.SelectionColor = Color.Coral;
+            logRichTextBox.AppendText(logMessage + "\n");
+        }
+
+        private void accessoryPictureBox_Click(object sender, EventArgs e)
+        {
+            LogEventSelectedItem?.Invoke(this, "Начинаем точить аксессуары");
+            SelectedItem = itemRepository.GetItemAccessory();
+        }
+
+        private void armorPictureBox_Click(object sender, EventArgs e)
+        {
+            LogEventSelectedItem?.Invoke(this, "Начинаем точить армор");
+            SelectedItem = itemRepository.GetItemArmor();
+        }
+
+        private void weaponPictureBox_Click(object sender, EventArgs e)
+        {
+            LogEventSelectedItem?.Invoke(this, "Начинаем точить оружие");
+            SelectedItem = itemRepository.GetItemWeapon();
         }
     }
 }

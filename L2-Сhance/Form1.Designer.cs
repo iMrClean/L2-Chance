@@ -32,14 +32,18 @@
             this.currentLevel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.accessoryPictureBox = new System.Windows.Forms.PictureBox();
+            this.armorPictureBox = new System.Windows.Forms.PictureBox();
+            this.weaponPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.accessoryPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ModificationButton
             // 
             this.ModificationButton.BackColor = System.Drawing.SystemColors.GrayText;
-            this.ModificationButton.Location = new System.Drawing.Point(174, 516);
+            this.ModificationButton.Location = new System.Drawing.Point(359, 516);
             this.ModificationButton.Name = "ModificationButton";
             this.ModificationButton.Size = new System.Drawing.Size(161, 37);
             this.ModificationButton.TabIndex = 0;
@@ -77,27 +81,41 @@
             this.logRichTextBox.TabIndex = 3;
             this.logRichTextBox.Text = "";
             // 
-            // button1
+            // accessoryPictureBox
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.GrayText;
-            this.button1.Location = new System.Drawing.Point(358, 516);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 37);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Модификация";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.accessoryPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.accessoryPictureBox.Image = global::L2_Сhance.Properties.Resources.Accessory;
+            this.accessoryPictureBox.Location = new System.Drawing.Point(364, 100);
+            this.accessoryPictureBox.Name = "accessoryPictureBox";
+            this.accessoryPictureBox.Size = new System.Drawing.Size(40, 40);
+            this.accessoryPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.accessoryPictureBox.TabIndex = 6;
+            this.accessoryPictureBox.TabStop = false;
+            this.accessoryPictureBox.Click += new System.EventHandler(this.accessoryPictureBox_Click);
             // 
-            // button2
+            // armorPictureBox
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.GrayText;
-            this.button2.Location = new System.Drawing.Point(539, 516);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(161, 37);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Модификация";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.armorPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.armorPictureBox.Image = global::L2_Сhance.Properties.Resources.Armor;
+            this.armorPictureBox.Location = new System.Drawing.Point(413, 100);
+            this.armorPictureBox.Name = "armorPictureBox";
+            this.armorPictureBox.Size = new System.Drawing.Size(40, 40);
+            this.armorPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.armorPictureBox.TabIndex = 7;
+            this.armorPictureBox.TabStop = false;
+            this.armorPictureBox.Click += new System.EventHandler(this.armorPictureBox_Click);
+            // 
+            // weaponPictureBox
+            // 
+            this.weaponPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.weaponPictureBox.Image = global::L2_Сhance.Properties.Resources.Weapon;
+            this.weaponPictureBox.Location = new System.Drawing.Point(463, 100);
+            this.weaponPictureBox.Name = "weaponPictureBox";
+            this.weaponPictureBox.Size = new System.Drawing.Size(40, 40);
+            this.weaponPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.weaponPictureBox.TabIndex = 8;
+            this.weaponPictureBox.TabStop = false;
+            this.weaponPictureBox.Click += new System.EventHandler(this.weaponPictureBox_Click);
             // 
             // MainForm
             // 
@@ -105,8 +123,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::L2_Сhance.Properties.Resources.MainForm;
             this.ClientSize = new System.Drawing.Size(874, 641);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.weaponPictureBox);
+            this.Controls.Add(this.armorPictureBox);
+            this.Controls.Add(this.accessoryPictureBox);
             this.Controls.Add(this.logRichTextBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.currentLevel);
@@ -114,6 +133,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "L2-Chance";
+            ((System.ComponentModel.ISupportInitialize)(this.accessoryPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -124,8 +146,9 @@
         private System.Windows.Forms.Label currentLevel;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.RichTextBox logRichTextBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox accessoryPictureBox;
+        private System.Windows.Forms.PictureBox armorPictureBox;
+        private System.Windows.Forms.PictureBox weaponPictureBox;
     }
 }
 

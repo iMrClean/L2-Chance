@@ -63,9 +63,39 @@ namespace L2_Сhance.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Accessory {
+            get {
+                object obj = ResourceManager.GetObject("Accessory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Armor {
+            get {
+                object obj = ResourceManager.GetObject("Armor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MainForm {
             get {
                 object obj = ResourceManager.GetObject("MainForm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weapon {
+            get {
+                object obj = ResourceManager.GetObject("Weapon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
