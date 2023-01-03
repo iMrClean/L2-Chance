@@ -30,6 +30,8 @@
         {
             this.ModificationButton = new System.Windows.Forms.Button();
             this.currentLevel = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.logRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // ModificationButton
@@ -47,7 +49,7 @@
             // 
             this.currentLevel.BackColor = System.Drawing.Color.Transparent;
             this.currentLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.currentLevel.ForeColor = System.Drawing.Color.Red;
+            this.currentLevel.ForeColor = System.Drawing.Color.Green;
             this.currentLevel.Location = new System.Drawing.Point(391, 279);
             this.currentLevel.Name = "currentLevel";
             this.currentLevel.Size = new System.Drawing.Size(98, 94);
@@ -55,12 +57,31 @@
             this.currentLevel.Text = "0";
             this.currentLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(215, 425);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(449, 23);
+            this.progressBar1.TabIndex = 2;
+            // 
+            // logRichTextBox
+            // 
+            this.logRichTextBox.Location = new System.Drawing.Point(215, 157);
+            this.logRichTextBox.Name = "logRichTextBox";
+            this.logRichTextBox.ReadOnly = true;
+            this.logRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.logRichTextBox.Size = new System.Drawing.Size(449, 110);
+            this.logRichTextBox.TabIndex = 3;
+            this.logRichTextBox.Text = "";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::L2_Сhance.Properties.Resources.MainForm;
             this.ClientSize = new System.Drawing.Size(874, 641);
+            this.Controls.Add(this.logRichTextBox);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.currentLevel);
             this.Controls.Add(this.ModificationButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -74,6 +95,8 @@
 
         private System.Windows.Forms.Button ModificationButton;
         private System.Windows.Forms.Label currentLevel;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.RichTextBox logRichTextBox;
     }
 }
 

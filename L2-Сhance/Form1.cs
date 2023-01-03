@@ -22,7 +22,8 @@ namespace L2_Сhance
         {
             InitializeComponent();
             modificationService = new ModificationService(itemRepository);
-            itemRepository.EnchanceLevel += EnchanceLevel_Handler;
+            itemRepository.EnchanceLevel += EnchanceLevelHandler;
+            modificationService.LogEvent += LogEventHandler;
         }
 
         private void ModificationButton_Click(object sender, EventArgs e)
@@ -31,9 +32,35 @@ namespace L2_Сhance
             modificationService.Process(item);
         }
 
-        private void EnchanceLevel_Handler(object sender, int curr)
+        private void EnchanceLevelHandler(object sender, int curr)
         {
+            
+            if (curr == 0) {
+                currentLevel.ForeColor = Color.Green;
+            }
+            else if (curr > 0 && curr < 4)
+            {
+                currentLevel.ForeColor = Color.Gold;
+            }
+            else { currentLevel.ForeColor = Color.DarkRed; }
+
             currentLevel.Text = curr.ToString();
+        }
+
+        private void LogEventHandler(object sender, string logMessage) 
+        {
+            if(logMessage.Contains("[Успешно]")) 
+            {
+                logRichTextBox.SelectionColor = Color.Green;
+            } 
+            else if(logMessage.Contains("[Неуспешно]"))
+            {
+                logRichTextBox.SelectionColor = Color.Red;
+            }      
+
+            logRichTextBox.AppendText(logMessage + "\n");
+            logRichTextBox.SelectionStart = logRichTextBox.Text.Length;
+            logRichTextBox.ScrollToCaret();
         }
     }
 }

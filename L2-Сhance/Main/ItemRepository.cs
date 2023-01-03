@@ -27,7 +27,7 @@ namespace L2_Сhance.Main
             dbItem.EnchanceLevel = ++item.EnchanceLevel;
             int value = item.EnchantChance = GetCurrentChance(item.EnchanceLevel);
             dbItem.EnchantChance = value;
-            EnchanceLevel?.Invoke(this, dbItem.EnchanceLevel);
+            UpdateEnchanceLevel();
         }
 
         public void RemoveItem(Item item)
@@ -37,7 +37,7 @@ namespace L2_Сhance.Main
                 EnchanceLevel = 0,
                 EnchantChance = 100
             };
-            EnchanceLevel?.Invoke(this, dbItem.EnchanceLevel);
+            UpdateEnchanceLevel();
         }
 
         public int GetCurrentChance(int enchanceLevel)
@@ -65,6 +65,11 @@ namespace L2_Сhance.Main
                 result -= 92;
             }
             return result;
+        }
+
+        private void UpdateEnchanceLevel()
+        {
+            EnchanceLevel?.Invoke(this, dbItem.EnchanceLevel);
         }
     }
 }

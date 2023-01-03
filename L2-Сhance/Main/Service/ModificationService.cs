@@ -11,6 +11,10 @@ namespace L2_Сhance.Main.Service
 
         private readonly ItemRepository itemRepository;
 
+        public event EventHandler<string> LogEvent;
+
+        public int ItemCount { get; private set; }
+
         public ModificationService(ItemRepository itemRepository)
         {
             this.itemRepository = itemRepository;
@@ -39,24 +43,32 @@ namespace L2_Сhance.Main.Service
 
             if (currentEnchanceLevel < 1)
             {
-                MessageBox.Show($"Текущее значение модификации {currentEnchanceLevel}, Сейчас заточили на {++currentEnchanceLevel}");
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
+                UpdateLogEvent(logMessage);
                 itemRepository.SaveItem(item);
                 return;
             }
-            
+
             int resultValue = random.Next(0, 101);
 
             if (resultValue <= currentEnchantChance)
             {
-                MessageBox.Show($"Текущее значение модификации {currentEnchanceLevel}, ты попал в шанс {resultValue}, шанс заточки {currentEnchantChance}");
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
+                UpdateLogEvent(logMessage);                
                 itemRepository.SaveItem(item);
             }
             else
             {
-                MessageBox.Show($"Просто соси, без пояснений, шанс рандома {resultValue}, шанс заточки {item.EnchantChance}");
+                string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
+                UpdateLogEvent(logMessage);
                 itemRepository.RemoveItem(item);
+                ++ItemCount;
             }
         }
 
+        private void UpdateLogEvent(string logMessage)
+        {
+            LogEvent?.Invoke(this, logMessage);
+        }
     }
 }
