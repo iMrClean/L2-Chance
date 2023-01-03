@@ -1,5 +1,6 @@
 ﻿using L2_Сhance.Main.Enum;
 using L2_Сhance.Main.Model;
+using L2_Сhance.Main.Repository;
 using System;
 using System.Windows.Forms;
 
@@ -9,7 +10,7 @@ namespace L2_Сhance.Main.Service
     {
         private static readonly Random random = new Random();
 
-        private readonly ItemRepository itemRepository;
+        private readonly AccessoryRepository itemRepository;
 
         public event EventHandler<string> LogEvent;
 
@@ -19,7 +20,7 @@ namespace L2_Сhance.Main.Service
         
         public ModificationService()
         {
-            itemRepository = new ItemRepository();
+            itemRepository = new AccessoryRepository();
         }
 
         internal Item GetItemAccessory()
@@ -27,105 +28,26 @@ namespace L2_Сhance.Main.Service
             return itemRepository.GetItemAccessory();
         }
 
-        internal Item GetItemWeapon()
-        {
-            return itemRepository.GetItemWeapon();
-        }
-
-        internal Item GetItemArmor()
-        {
-            return itemRepository.GetItemArmor();
-        }
-
         internal void DoMagicAccessory(Item item)
         {
+            bool enchanceSuccess = item.DoMagic();
             int currentEnchanceLevel = item.EnchanceLevel;
-            int currentEnchantChance = item.EnchantChance;
+            int resultValue = item.RandomEnchance;
 
-            if (currentEnchanceLevel < 1)
+            if (enchanceSuccess) 
             {
                 SaveItemAccessory(item);
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
                 UpdateLogEvent(logMessage);
                 return;
-            }
-
-            int resultValue = random.Next(0, 101);
-
-            if (resultValue <= currentEnchantChance)
-            {
-                SaveItemAccessory(item);
-                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
-                UpdateLogEvent(logMessage);
-            }
-            else
+            } else
             {
                 ++ItemCount;
                 RemoveItemAccessory(item);
                 string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
                 UpdateLogEvent(logMessage);
             }
-        }
-        
-        internal void DoMagicWeapon(Item item)
-        {
-            int currentEnchanceLevel = item.EnchanceLevel;
-            int currentEnchantChance = item.EnchantChance;
-
-            if (currentEnchanceLevel < 4)
-            {
-                itemRepository.SaveItemWeapon(item);
-                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
-                UpdateLogEvent(logMessage);
-                return;
-            }
-
-            int resultValue = random.Next(0, 101);
-
-            if (resultValue <= currentEnchantChance)
-            {
-                itemRepository.SaveItemWeapon(item);
-                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
-                UpdateLogEvent(logMessage);
-            }
-            else
-            {
-                ++ItemCount;
-                itemRepository.RemoveItemWeapon(item);
-                string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
-                UpdateLogEvent(logMessage);
-            }
-        }
-
-        internal void DoMagicArmor(Item item)
-        {
-            int currentEnchanceLevel = item.EnchanceLevel;
-            int currentEnchantChance = item.EnchantChance;
-
-            if (currentEnchanceLevel < 4)
-            {
-                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
-                UpdateLogEvent(logMessage);
-                itemRepository.SaveItemWeapon(item);
-                return;
-            }
-
-            int resultValue = random.Next(0, 101);
-
-            if (resultValue <= currentEnchantChance)
-            {
-                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
-                UpdateLogEvent(logMessage);
-                itemRepository.SaveItemArmor(item);
-            }
-            else
-            {
-                ++ItemCount;
-                string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
-                UpdateLogEvent(logMessage);
-                itemRepository.RemoveItemArmor(item);
-            }
-        }
+        }    
 
         private void SaveItemAccessory(Item item)
         {

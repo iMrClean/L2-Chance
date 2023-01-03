@@ -53,9 +53,12 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Enum\ItemType.cs" />
+    <Compile Include="Main\Model\Accessory.cs" />
+    <Compile Include="Main\Repository\AccessoryRepository.cs" />
     <Compile Include="Main\Repository\ItemRepository.cs" />
     <Compile Include="Main\Model\Item.cs" />
     <Compile Include="Main\Service\ModificationService.cs" />
+    <Compile Include="Main\Util\Randomizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">

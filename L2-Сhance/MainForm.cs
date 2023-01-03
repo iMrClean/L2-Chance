@@ -45,12 +45,12 @@ namespace L2_Сhance
                     modificationService.DoMagicAccessory(selectedItem);
                     break;
                 case ItemType.WEAPON:
-                    selectedItem = modificationService.GetItemWeapon();
-                    modificationService.DoMagicWeapon(selectedItem);
+                    //selectedItem = modificationService.GetItemWeapon();
+                    //modificationService.DoMagicWeapon(selectedItem);
                     break;
                 case ItemType.ARMOR:
-                    selectedItem = modificationService.GetItemArmor();
-                    modificationService.DoMagicArmor(selectedItem);
+                    //selectedItem = modificationService.GetItemArmor();
+                    //modificationService.DoMagicArmor(selectedItem);
                     break;
                 default:
                     throw new NotImplementedException();
