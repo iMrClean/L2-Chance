@@ -2,7 +2,7 @@
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Armor : ItemFactory
+    internal class Armor : AbstractItem
     {
         public override int GetCurrentChance()
         {

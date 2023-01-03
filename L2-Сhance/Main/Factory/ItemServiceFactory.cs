@@ -24,11 +24,11 @@ namespace L2_Сhance.Main.Factory
             }
         }
 
-        public abstract ItemFactory GetItem();
+        public abstract AbstractItem GetItem();
 
-        public abstract ItemFactory SaveItem();
+        public abstract AbstractItem SaveItem(AbstractItem itemFactory);
 
-        public abstract ItemFactory DeleteItem();
+        public abstract AbstractItem DeleteItem(AbstractItem itemFactory);
 
     }
 }

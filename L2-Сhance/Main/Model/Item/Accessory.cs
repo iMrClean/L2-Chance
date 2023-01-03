@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Accessory : ItemFactory
+    internal class Accessory : AbstractItem
     {
         public int SaveEnchanceLevel
         {

@@ -15,17 +15,17 @@ namespace L2_Сhance.Main.Service
             this.accessoryRepository = new AccessoryRepository();
         }
 
-        public override ItemFactory GetItem()
+        public override AbstractItem GetItem()
         {
             return accessoryRepository.GetItem();
         }
 
-        public override ItemFactory SaveItem()
+        public override AbstractItem SaveItem(Accessory accessory)
         {
-            throw new NotImplementedException();
+            return accessoryRepository.SaveItem(accessory);
         }
 
-        public override ItemFactory DeleteItem()
+        public override AbstractItem DeleteItem()
         {
             throw new NotImplementedException();
         }

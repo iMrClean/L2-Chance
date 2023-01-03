@@ -6,7 +6,7 @@ using System;
 
 namespace L2_Сhance.Main.Model
 {
-    internal abstract class ItemFactory
+    internal abstract class AbstractItem
     {
         public int RandomEnchance { get; set; }
 

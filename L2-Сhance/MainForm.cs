@@ -34,7 +34,7 @@ namespace L2_Сhance
         private void ModificationButton_Click(object sender, EventArgs e)
         {
             ItemServiceFactory factory = ItemServiceFactory.CreateItemServiceFactory(selectedItemType);
-            ItemFactory abstractItem = factory.GetItem();
+            AbstractItem abstractItem = factory.GetItem();
             abstractService.DoMagic(abstractItem);
         }
 
