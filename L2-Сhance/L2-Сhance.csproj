@@ -96,8 +96,6 @@
   <ItemGroup>
     <None Include="Resources\Weapon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Main\Event\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
