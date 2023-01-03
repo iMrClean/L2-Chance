@@ -28,8 +28,10 @@ namespace L2_Сhance.Main.Service
                     DoMagicAccessory(item);
                     break;
                 case ItemType.WEAPON:
+                    DoMagicWeapon(item);
                     break;
                 case ItemType.ARMOR:
+                    DoMagicArmor(item);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -45,7 +47,7 @@ namespace L2_Сhance.Main.Service
             {
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
                 UpdateLogEvent(logMessage);
-                itemRepository.SaveItem(item);
+                itemRepository.SaveItemAccessory(item);
                 return;
             }
 
@@ -54,16 +56,75 @@ namespace L2_Сhance.Main.Service
             if (resultValue <= currentEnchantChance)
             {
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
-                UpdateLogEvent(logMessage);                
-                itemRepository.SaveItem(item);
+                UpdateLogEvent(logMessage);
+                itemRepository.SaveItemAccessory(item);
             }
             else
             {
+                ++ItemCount;
                 string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
                 UpdateLogEvent(logMessage);
-                itemRepository.RemoveItem(item);
-                ++ItemCount;
+                itemRepository.RemoveItemAccessory(item);
+            }
+        }
 
+        internal void DoMagicWeapon(Item item)
+        {
+            int currentEnchanceLevel = item.EnchanceLevel;
+            int currentEnchantChance = item.EnchantChance;
+
+            if (currentEnchanceLevel < 4)
+            {
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
+                UpdateLogEvent(logMessage);
+                itemRepository.SaveItemWeapon(item);
+                return;
+            }
+
+            int resultValue = random.Next(0, 101);
+
+            if (resultValue <= currentEnchantChance)
+            {
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
+                UpdateLogEvent(logMessage);
+                itemRepository.SaveItemWeapon(item);
+            }
+            else
+            {
+                ++ItemCount;
+                string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
+                UpdateLogEvent(logMessage);
+                itemRepository.RemoveItemWeapon(item);
+            }
+        }
+
+        internal void DoMagicArmor(Item item)
+        {
+            int currentEnchanceLevel = item.EnchanceLevel;
+            int currentEnchantChance = item.EnchantChance;
+
+            if (currentEnchanceLevel < 4)
+            {
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
+                UpdateLogEvent(logMessage);
+                itemRepository.SaveItemWeapon(item);
+                return;
+            }
+
+            int resultValue = random.Next(0, 101);
+
+            if (resultValue <= currentEnchantChance)
+            {
+                string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
+                UpdateLogEvent(logMessage);
+                itemRepository.SaveItemArmor(item);
+            }
+            else
+            {
+                ++ItemCount;
+                string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
+                UpdateLogEvent(logMessage);
+                itemRepository.RemoveItemArmor(item);
             }
         }
 

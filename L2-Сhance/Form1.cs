@@ -18,6 +18,7 @@ namespace L2_Сhance
         private readonly ModificationService modificationService;
 
         private readonly ItemRepository itemRepository = new ItemRepository();
+
         public MainForm()
         {
             InitializeComponent();
@@ -28,7 +29,19 @@ namespace L2_Сhance
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            Item item = itemRepository.GetItem();
+            Item item = itemRepository.GetItemAccessory();
+            modificationService.Process(item);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Item item = itemRepository.GetItemWeapon();
+            modificationService.Process(item);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Item item = itemRepository.GetItemArmor();
             modificationService.Process(item);
         }
 
@@ -52,13 +65,13 @@ namespace L2_Сhance
             if(logMessage.Contains("[Успешно]")) 
             {
                 logRichTextBox.SelectionColor = Color.Green;
+                logRichTextBox.AppendText(logMessage + "\n");
             } 
             else if(logMessage.Contains("[Неуспешно]"))
             {
                 logRichTextBox.SelectionColor = Color.Red;
-            }      
-
-            logRichTextBox.AppendText(logMessage + "\n");
+                logRichTextBox.AppendText(logMessage + " Количество попыток : " + modificationService.ItemCount + "\n");
+            }
             logRichTextBox.SelectionStart = logRichTextBox.Text.Length;
             logRichTextBox.ScrollToCaret();
         }

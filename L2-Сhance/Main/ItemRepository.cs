@@ -1,4 +1,5 @@
-﻿using L2_Сhance.Main.Model;
+﻿using L2_Сhance.Main.Enum;
+using L2_Сhance.Main.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +10,103 @@ namespace L2_Сhance.Main
 {
     internal class ItemRepository
     {
-        private static Item dbItem = new Item()
+        private static Item dbItemAccessory = new Item()
         {
             EnchanceLevel = 0,
-            EnchantChance = 100
+            EnchantChance = 100,
+            ItemType = ItemType.ACCESSORY
+        };
+
+        private static Item dbItemWeapon = new Item()
+        {
+            EnchanceLevel = 0,
+            EnchantChance = 100,
+            ItemType = ItemType.WEAPON
+        };
+
+        private static Item dbItemArmor = new Item()
+        {
+            EnchanceLevel = 0,
+            EnchantChance = 100,
+            ItemType = ItemType.ARMOR
         };
 
         public event EventHandler<int> EnchanceLevel;
 
-        public Item GetItem()
+        public Item GetItemAccessory()
         {
-            return dbItem;
+            return dbItemAccessory;
         }
 
-        public void SaveItem(Item item)
+        public Item GetItemWeapon()
         {
-            dbItem.EnchanceLevel = ++item.EnchanceLevel;
-            int value = item.EnchantChance = GetCurrentChance(item.EnchanceLevel);
-            dbItem.EnchantChance = value;
-            UpdateEnchanceLevel(); 
+            return dbItemWeapon;
+
         }
 
-        public void RemoveItem(Item item)
+        public Item GetItemArmor()
         {
-            dbItem = new Item()
+            return dbItemArmor;
+        }
+
+        public void SaveItemAccessory(Item item)
+        {
+            dbItemAccessory.EnchanceLevel = ++item.EnchanceLevel;
+            int value = item.EnchantChance = GetCurrentChanceAccessory(item.EnchanceLevel);
+            dbItemAccessory.EnchantChance = value;
+            UpdateEnchanceLevel(dbItemAccessory); 
+        }
+
+        public void RemoveItemAccessory(Item item)
+        {
+            dbItemAccessory = new Item()
             {
                 EnchanceLevel = 0,
-                EnchantChance = 100
+                EnchantChance = 100,
+                ItemType = ItemType.ACCESSORY
             };
-            UpdateEnchanceLevel();
+            UpdateEnchanceLevel(dbItemAccessory);
         }
 
-        public int GetCurrentChance(int enchanceLevel)
+        public void SaveItemWeapon(Item item)
+        {
+            dbItemWeapon.EnchanceLevel = ++item.EnchanceLevel;
+            int value = item.EnchantChance = GetCurrentChanceWeapon(item.EnchanceLevel);
+            dbItemWeapon.EnchantChance = value;
+            UpdateEnchanceLevel(dbItemWeapon);
+        }
+
+        public void RemoveItemWeapon(Item item)
+        {
+            dbItemWeapon = new Item()
+            {
+                EnchanceLevel = 0,
+                EnchantChance = 100,
+                ItemType = ItemType.WEAPON
+            };
+            UpdateEnchanceLevel(dbItemWeapon);
+        }
+
+        public void SaveItemArmor(Item item)
+        {
+            dbItemArmor.EnchanceLevel = ++item.EnchanceLevel;
+            int value = item.EnchantChance = GetCurrentChanceArmor(item.EnchanceLevel);
+            dbItemArmor.EnchantChance = value;
+            UpdateEnchanceLevel(dbItemArmor);
+        }
+
+        public void RemoveItemArmor(Item item)
+        {
+            dbItemArmor = new Item()
+            {
+                EnchanceLevel = 0,
+                EnchantChance = 100,
+                ItemType = ItemType.ARMOR
+            };
+            UpdateEnchanceLevel(dbItemArmor);
+        }
+
+        private int GetCurrentChanceAccessory(int enchanceLevel)
         {
             int result = 100;
 
@@ -67,9 +133,71 @@ namespace L2_Сhance.Main
             return result;
         }
 
-        private void UpdateEnchanceLevel()
+        private int GetCurrentChanceWeapon(int enchanceLevel)
         {
-            EnchanceLevel?.Invoke(this, dbItem.EnchanceLevel);
+            int result = 100;
+
+            if (enchanceLevel == 4)
+            {
+                result -= 70;
+            }
+            else if (enchanceLevel == 5)
+            {
+                result -= 75;
+            }
+            else if (enchanceLevel == 6)
+            {
+                result -= 80;
+            }
+            else if (enchanceLevel == 7)
+            {
+                result -= 85;
+            }
+            else if (enchanceLevel == 8)
+            {
+                result -= 90;
+            }
+            else if (enchanceLevel == 9)
+            {
+                result -= 95;
+            }
+            return result;
+        }
+
+        private int GetCurrentChanceArmor(int enchanceLevel)
+        {
+            int result = 100;
+
+            if (enchanceLevel == 5)
+            {
+                result -= 70;
+            }
+            else if (enchanceLevel == 6)
+            {
+                result -= 75;
+            }
+            else if (enchanceLevel == 7)
+            {
+                result -= 80;
+            }
+            else if (enchanceLevel == 8)
+            {
+                result -= 85;
+            }
+            else if (enchanceLevel == 9)
+            {
+                result -= 90;
+            }
+            else if (enchanceLevel == 10)
+            {
+                result -= 95;
+            }
+            return result;
+        }
+
+        private void UpdateEnchanceLevel(Item item)
+        {
+            EnchanceLevel?.Invoke(this, item.EnchanceLevel);
         }
     }
 }
