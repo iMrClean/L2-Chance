@@ -54,11 +54,10 @@
     </Compile>
     <Compile Include="Main\Enum\ItemType.cs" />
     <Compile Include="Main\Factory\ItemServiceFactory.cs" />
-    <Compile Include="Main\Model\Item\Accessory.cs" />
-    <Compile Include="Main\Model\Item\Armor.cs" />
-    <Compile Include="Main\Model\Item\Weapon.cs" />
+    <Compile Include="Main\Model\Accessory.cs" />
+    <Compile Include="Main\Model\Armor.cs" />
+    <Compile Include="Main\Model\Weapon.cs" />
     <Compile Include="Main\Repository\AccessoryRepository.cs" />
-    <Compile Include="Main\Model\AbstractItem.cs" />
     <Compile Include="Main\Repository\ArmorRepository.cs" />
     <Compile Include="Main\Repository\WeaponRepository.cs" />
     <Compile Include="Main\Service\AbstractService.cs" />
