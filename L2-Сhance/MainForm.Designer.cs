@@ -132,6 +132,7 @@
             this.Controls.Add(this.ModificationButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "L2-Chance";
             ((System.ComponentModel.ISupportInitialize)(this.accessoryPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.armorPictureBox)).EndInit();

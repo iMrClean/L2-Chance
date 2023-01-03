@@ -13,29 +13,28 @@ namespace L2_Сhance.Main.Service
 
         public event EventHandler<string> LogEvent;
 
-        public int ItemCount { get; private set; }
+        public event EventHandler<int> EnchanceLevel;
 
-        public ModificationService(ItemRepository itemRepository)
+        public int ItemCount { get; private set; }
+        
+        public ModificationService()
         {
-            this.itemRepository = itemRepository;
+            itemRepository = new ItemRepository();
         }
 
-        internal void Process(Item item)
+        internal Item GetItemAccessory()
         {
-            switch (item.ItemType)
-            {
-                case ItemType.ACCESSORY:
-                    DoMagicAccessory(item);
-                    break;
-                case ItemType.WEAPON:
-                    DoMagicWeapon(item);
-                    break;
-                case ItemType.ARMOR:
-                    DoMagicArmor(item);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+            return itemRepository.GetItemAccessory();
+        }
+
+        internal Item GetItemWeapon()
+        {
+            return itemRepository.GetItemWeapon();
+        }
+
+        internal Item GetItemArmor()
+        {
+            return itemRepository.GetItemArmor();
         }
 
         internal void DoMagicAccessory(Item item)
@@ -45,9 +44,9 @@ namespace L2_Сhance.Main.Service
 
             if (currentEnchanceLevel < 1)
             {
+                SaveItemAccessory(item);
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
                 UpdateLogEvent(logMessage);
-                itemRepository.SaveItemAccessory(item);
                 return;
             }
 
@@ -55,17 +54,29 @@ namespace L2_Сhance.Main.Service
 
             if (resultValue <= currentEnchantChance)
             {
+                SaveItemAccessory(item);
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
                 UpdateLogEvent(logMessage);
-                itemRepository.SaveItemAccessory(item);
             }
             else
             {
                 ++ItemCount;
+                RemoveItemAccessory(item);
                 string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
                 UpdateLogEvent(logMessage);
-                itemRepository.RemoveItemAccessory(item);
             }
+        }
+
+        private void SaveItemAccessory(Item item)
+        {
+            Item dbItemAccessory = itemRepository.SaveItemAccessory(item);
+            UpdateEnchanceLevel(dbItemAccessory);
+        }
+
+        private void RemoveItemAccessory(Item item)
+        {
+            Item dbItemAccessory = itemRepository.RemoveItemAccessory(item);
+            UpdateEnchanceLevel(dbItemAccessory);
         }
 
         internal void DoMagicWeapon(Item item)
@@ -75,9 +86,9 @@ namespace L2_Сhance.Main.Service
 
             if (currentEnchanceLevel < 4)
             {
+                itemRepository.SaveItemWeapon(item);
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, модифицировано: {++currentEnchanceLevel}";
                 UpdateLogEvent(logMessage);
-                itemRepository.SaveItemWeapon(item);
                 return;
             }
 
@@ -85,16 +96,16 @@ namespace L2_Сhance.Main.Service
 
             if (resultValue <= currentEnchantChance)
             {
+                itemRepository.SaveItemWeapon(item);
                 string logMessage = $"[Успешно] Текущее значение модификации: {currentEnchanceLevel}, шанс: {resultValue}, шанс заточки: {currentEnchantChance}";
                 UpdateLogEvent(logMessage);
-                itemRepository.SaveItemWeapon(item);
             }
             else
             {
                 ++ItemCount;
+                itemRepository.RemoveItemWeapon(item);
                 string logMessage = $"[Неуспешно] Шанс: {resultValue}, шанс заточки: {item.EnchantChance}";
                 UpdateLogEvent(logMessage);
-                itemRepository.RemoveItemWeapon(item);
             }
         }
 
@@ -131,6 +142,16 @@ namespace L2_Сhance.Main.Service
         private void UpdateLogEvent(string logMessage)
         {
             LogEvent?.Invoke(this, logMessage);
+        }
+
+        public void UpdateEnchanceLevel(Item item)
+        {
+            EnchanceLevel?.Invoke(this, item.EnchanceLevel);
+        }
+
+        internal void ResetCount()
+        {
+            ItemCount = 0;
         }
     }
 }

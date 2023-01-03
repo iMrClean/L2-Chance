@@ -1,4 +1,5 @@
 ﻿using L2_Сhance.Main;
+using L2_Сhance.Main.Enum;
 using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Service;
 using System;
@@ -17,30 +18,43 @@ namespace L2_Сhance
     {
         private readonly ModificationService modificationService;
 
-        private readonly ItemRepository itemRepository = new ItemRepository();
-
-        private Item SelectedItem;
+        private ItemType selectedItemType;
 
         public event EventHandler<string> LogEventSelectedItem;
 
         public MainForm()
         {
             InitializeComponent();
-            modificationService = new ModificationService(itemRepository);
-            itemRepository.EnchanceLevel += EnchanceLevelHandler;
+            modificationService = new ModificationService();
+            modificationService.EnchanceLevel += EnchanceLevelHandler;
             modificationService.LogEvent += LogEventHandler;
             this.LogEventSelectedItem += LogEventSelectedItemHandler;
         }
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            if (SelectedItem == null) 
-            {
-                MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            Item selectedItem = null;
 
-            modificationService.Process(SelectedItem);
+            switch (selectedItemType)
+            {
+                case ItemType.UNDEFINED:
+                    MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                    break;
+                case ItemType.ACCESSORY:
+                    selectedItem = modificationService.GetItemAccessory();
+                    modificationService.DoMagicAccessory(selectedItem);
+                    break;
+                case ItemType.WEAPON:
+                    selectedItem = modificationService.GetItemWeapon();
+                    modificationService.DoMagicWeapon(selectedItem);
+                    break;
+                case ItemType.ARMOR:
+                    selectedItem = modificationService.GetItemArmor();
+                    modificationService.DoMagicArmor(selectedItem);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         private void EnchanceLevelHandler(object sender, int curr)
@@ -78,24 +92,28 @@ namespace L2_Сhance
         {
             logRichTextBox.SelectionColor = Color.Coral;
             logRichTextBox.AppendText(logMessage + "\n");
+            logRichTextBox.ScrollToCaret();
         }
 
         private void accessoryPictureBox_Click(object sender, EventArgs e)
         {
-            LogEventSelectedItem?.Invoke(this, "Начинаем точить аксессуары");
-            SelectedItem = itemRepository.GetItemAccessory();
+            LogEventSelectedItem?.Invoke(this, "Выбран аксессуар");
+            selectedItemType = ItemType.ACCESSORY;
+            modificationService.ResetCount();
         }
 
         private void armorPictureBox_Click(object sender, EventArgs e)
         {
-            LogEventSelectedItem?.Invoke(this, "Начинаем точить армор");
-            SelectedItem = itemRepository.GetItemArmor();
+            LogEventSelectedItem?.Invoke(this, "Выбран доспех");
+            selectedItemType = ItemType.ARMOR;
+            modificationService.ResetCount();
         }
 
         private void weaponPictureBox_Click(object sender, EventArgs e)
         {
-            LogEventSelectedItem?.Invoke(this, "Начинаем точить оружие");
-            SelectedItem = itemRepository.GetItemWeapon();
+            LogEventSelectedItem?.Invoke(this, "Выбран оружие");
+            selectedItemType = ItemType.WEAPON;
+            modificationService.ResetCount();
         }
     }
 }

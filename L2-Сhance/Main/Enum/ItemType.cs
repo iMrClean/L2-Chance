@@ -2,6 +2,7 @@
 {
     internal enum ItemType
     {
+        UNDEFINED,
         ACCESSORY,
         WEAPON,
         ARMOR
