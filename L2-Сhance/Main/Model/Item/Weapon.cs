@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Weapon : AbstractItem
+    internal class Weapon : ItemFactory
     {
-        public override bool DoMagic()
-        {
-            throw new NotImplementedException();
-        }
 
         public override int GetCurrentChance()
         {

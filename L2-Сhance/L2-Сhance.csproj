@@ -53,6 +53,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Enum\ItemType.cs" />
+    <Compile Include="Main\Factory\ItemServiceFactory.cs" />
     <Compile Include="Main\Model\Item\Accessory.cs" />
     <Compile Include="Main\Model\Item\Armor.cs" />
     <Compile Include="Main\Model\Item\Weapon.cs" />

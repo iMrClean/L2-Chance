@@ -1,37 +1,32 @@
 ﻿using L2_Сhance.Main.Enum;
+using L2_Сhance.Main.Factory;
 using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class WeaponService : AbstractService
+    internal class WeaponService : ItemServiceFactory
     {
         private readonly WeaponRepository weaponRepository;
 
         public WeaponService() 
         {
-            weaponRepository = new WeaponRepository();
+            this.weaponRepository = new WeaponRepository();
         }
 
-        internal override void DoMagic(AbstractItem item)
+        public override AbstractItem GetItem()
         {
-            Console.Beep();
+            return weaponRepository.GetItem();
         }
 
-        internal override void RemoveItem(AbstractItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void SaveItem(AbstractItem item)
+        public override AbstractItem SaveItem()
         {
             throw new NotImplementedException();
         }
-
-        internal override ItemType GetItemType()
+        public override AbstractItem DeleteItem()
         {
-            return ItemType.WEAPON;
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,37 +1,33 @@
 ﻿using L2_Сhance.Main.Enum;
+using L2_Сhance.Main.Factory;
 using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class AccessoryService : AbstractService
+    internal class AccessoryService : ItemServiceFactory
     {
         private readonly AccessoryRepository accessoryRepository;
 
         public AccessoryService()
         {
-            accessoryRepository = new AccessoryRepository();
+            this.accessoryRepository = new AccessoryRepository();
         }
 
-        internal override void DoMagic(AbstractItem item)
+        public override ItemFactory GetItem()
         {
-            Console.WriteLine("BBB");
+            return accessoryRepository.GetItem();
         }
 
-        internal override void RemoveItem(AbstractItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void SaveItem(AbstractItem item)
+        public override ItemFactory SaveItem()
         {
             throw new NotImplementedException();
         }
 
-        internal override ItemType GetItemType()
+        public override ItemFactory DeleteItem()
         {
-            return ItemType.ACCESSORY;
+            throw new NotImplementedException();
         }
     }
 }

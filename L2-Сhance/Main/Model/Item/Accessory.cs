@@ -9,29 +9,19 @@ using System.Threading.Tasks;
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Accessory : AbstractItem
+    internal class Accessory : ItemFactory
     {
-        private const int SAVE_ENCHANCE_LEVEL = 1;
+        public int SaveEnchanceLevel
+        {
+            get
+            {
+                return 1;
+            }
+        }
 
         public int EnchanceLevel { get; set; }
 
-        public int RandomEnchance { get; set; }
-
         public ItemType ItemType { get; set; }
-
-        public int EnchantChance { get; set; }
-
-        public override bool DoMagic()
-        {
-            RandomEnchance = Randomizer.GenerateRandomValue();
-
-            if (EnchanceLevel < SAVE_ENCHANCE_LEVEL)
-            {
-                return true;
-            }
-
-            return RandomEnchance <= EnchantChance;
-        }
 
         public override int GetCurrentChance()
         {
