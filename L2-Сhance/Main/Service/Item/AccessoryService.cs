@@ -6,7 +6,7 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class AccessoryService : ItemServiceFactory
+    internal class AccessoryService : AbstractService<Accessory>
     {
         private readonly AccessoryRepository accessoryRepository;
 
@@ -15,17 +15,17 @@ namespace L2_Сhance.Main.Service
             this.accessoryRepository = new AccessoryRepository();
         }
 
-        public override AbstractItem GetItem()
+        public override void DeleteItem(Accessory model)
         {
-            return accessoryRepository.GetItem();
+            throw new NotImplementedException();
         }
 
-        public override AbstractItem SaveItem(Accessory accessory)
+        public override void GetItem()
         {
-            return accessoryRepository.SaveItem(accessory);
+            throw new NotImplementedException();
         }
 
-        public override AbstractItem DeleteItem()
+        public override void SaveItem(Accessory model)
         {
             throw new NotImplementedException();
         }

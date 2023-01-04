@@ -6,7 +6,7 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class ArmorService : ItemServiceFactory
+    internal class ArmorService : AbstractService<Armor>
     {
         private readonly ArmorRepository armorRepository;
 
@@ -15,16 +15,17 @@ namespace L2_Сhance.Main.Service
             this.armorRepository = new ArmorRepository();
         }
 
-        public override AbstractItem GetItem()
-        {
-            return armorRepository.GetItem();
-        }
-
-        public override AbstractItem SaveItem()
+        public override void DeleteItem(Armor model)
         {
             throw new NotImplementedException();
         }
-        public override AbstractItem DeleteItem()
+
+        public override void GetItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SaveItem(Armor model)
         {
             throw new NotImplementedException();
         }

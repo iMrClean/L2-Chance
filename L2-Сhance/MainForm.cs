@@ -23,8 +23,6 @@ namespace L2_Сhance
 
         public event EventHandler<string> LogEventSelectedItem;
 
-        private readonly AbstractService abstractService;
-
         public MainForm()
         {
             InitializeComponent();
@@ -33,9 +31,14 @@ namespace L2_Сhance
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            ItemServiceFactory factory = ItemServiceFactory.CreateItemServiceFactory(selectedItemType);
-            AbstractItem abstractItem = factory.GetItem();
-            abstractService.DoMagic(abstractItem);
+            ServiceFactory factory = ServiceFactory.CreateItemServiceFactory(selectedItemType);
+            if (factory == null)
+            {
+                MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            IAbstractService abstractService = ServiceFactory.CreateItemFactory(selectedItemType);
+            abstractService.DoMagic();
         }
 
         private void LogEventSelectedItemHandler(object sender, string logMessage)

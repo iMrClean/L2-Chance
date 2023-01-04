@@ -6,7 +6,7 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class WeaponService : ItemServiceFactory
+    internal class WeaponService : AbstractService<Weapon>
     {
         private readonly WeaponRepository weaponRepository;
 
@@ -15,16 +15,17 @@ namespace L2_Сhance.Main.Service
             this.weaponRepository = new WeaponRepository();
         }
 
-        public override AbstractItem GetItem()
-        {
-            return weaponRepository.GetItem();
-        }
-
-        public override AbstractItem SaveItem()
+        public override void DeleteItem(Weapon model)
         {
             throw new NotImplementedException();
         }
-        public override AbstractItem DeleteItem()
+
+        public override void GetItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SaveItem(Weapon model)
         {
             throw new NotImplementedException();
         }
