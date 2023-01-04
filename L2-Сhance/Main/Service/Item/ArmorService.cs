@@ -1,33 +1,30 @@
-﻿using L2_Сhance.Main.Enum;
-using L2_Сhance.Main.Factory;
-using L2_Сhance.Main.Model;
+﻿using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class ArmorService : AbstractService<Armor>
+    internal class ArmorService
     {
         private readonly ArmorRepository armorRepository;
 
-        public ArmorService() 
+        public ArmorService(ArmorRepository armorRepository) 
         {
-            this.armorRepository = new ArmorRepository();
+            this.armorRepository = armorRepository;
         }
 
-        public override void DeleteItem(Armor model)
+        public Armor GetItem()
         {
-            throw new NotImplementedException();
+            return armorRepository.GetItem();
         }
 
-        public override void GetItem()
+        public Armor SaveItem(Armor armor)
         {
-            throw new NotImplementedException();
+            return armorRepository.SaveItem(armor);
         }
-
-        public override void SaveItem(Armor model)
+        public Armor DeleteItem(Armor armor)
         {
-            throw new NotImplementedException();
+            return armorRepository.RemoveItem();
         }
     }
 }

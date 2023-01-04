@@ -1,33 +1,30 @@
-﻿using L2_Сhance.Main.Enum;
-using L2_Сhance.Main.Factory;
-using L2_Сhance.Main.Model;
+﻿using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class AccessoryService : AbstractService<Accessory>
+    internal class AccessoryService
     {
         private readonly AccessoryRepository accessoryRepository;
 
-        public AccessoryService()
+        public AccessoryService(AccessoryRepository accessoryRepository)
         {
-            this.accessoryRepository = new AccessoryRepository();
+            this.accessoryRepository = accessoryRepository;
         }
 
-        public override void DeleteItem(Accessory model)
+        public Accessory GetItem()
         {
-            throw new NotImplementedException();
+            return accessoryRepository.GetItem();
         }
 
-        public override void GetItem()
+        public Accessory SaveItem(Accessory accessory)
         {
-            throw new NotImplementedException();
+            return accessoryRepository.SaveItem(accessory);
         }
-
-        public override void SaveItem(Accessory model)
+        public Accessory DeleteItem()
         {
-            throw new NotImplementedException();
+            return accessoryRepository.RemoveItem();
         }
     }
 }

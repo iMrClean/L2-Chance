@@ -2,14 +2,8 @@
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Accessory
+    internal class Accessory : Item
     {
-        public int RandomEnchance { get; set; }
-
-        public int EnchantChance { get; set; }
-
-        public int EnchanceLevel { get; set; }
-
         public int SaveEnchanceLevel
         {
             get

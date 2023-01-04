@@ -2,14 +2,8 @@
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Armor
+    internal class Armor : Item
     {
-        public int RandomEnchance { get; set; }
-
-        public int EnchantChance { get; set; }
-
-        public int EnchanceLevel { get; set; }
-
         public int SaveEnchanceLevel
         {
             get

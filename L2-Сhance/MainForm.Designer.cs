@@ -91,7 +91,7 @@
             this.accessoryPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.accessoryPictureBox.TabIndex = 6;
             this.accessoryPictureBox.TabStop = false;
-            this.accessoryPictureBox.Click += new System.EventHandler(this.accessoryPictureBox_Click);
+            this.accessoryPictureBox.Click += new System.EventHandler(this.AccessoryPictureBox_Click);
             // 
             // armorPictureBox
             // 
@@ -103,7 +103,7 @@
             this.armorPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.armorPictureBox.TabIndex = 7;
             this.armorPictureBox.TabStop = false;
-            this.armorPictureBox.Click += new System.EventHandler(this.armorPictureBox_Click);
+            this.armorPictureBox.Click += new System.EventHandler(this.ArmorPictureBox_Click);
             // 
             // weaponPictureBox
             // 
@@ -115,7 +115,7 @@
             this.weaponPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.weaponPictureBox.TabIndex = 8;
             this.weaponPictureBox.TabStop = false;
-            this.weaponPictureBox.Click += new System.EventHandler(this.weaponPictureBox_Click);
+            this.weaponPictureBox.Click += new System.EventHandler(this.WeaponPictureBox_Click);
             // 
             // MainForm
             // 

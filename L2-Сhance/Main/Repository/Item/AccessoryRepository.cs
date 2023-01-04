@@ -19,8 +19,12 @@ namespace L2_Сhance.Main.Repository
 
         public Accessory SaveItem(Accessory accessory)
         {
-            dbItem.EnchanceLevel = ++accessory.EnchanceLevel;
-            dbItem.EnchantChance = accessory.EnchantChance = dbItem.GetCurrentChance();
+            dbItem = new Accessory()
+            {
+                EnchanceLevel = ++accessory.EnchanceLevel,
+                EnchantChance = accessory.EnchantChance = dbItem.GetCurrentChance(),
+                ItemType = ItemType.ACCESSORY
+            };
             
             return dbItem;
         }
