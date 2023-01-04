@@ -1,65 +1,40 @@
 ﻿using L2_Сhance.Main.Model;
-using L2_Сhance.Main.Util;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
     internal class ModificationService
     {
+        public int ItemCount { get; private set; }
 
-        internal void DoMagic(object item)
+        internal void Processing(Item item)
         {
-            if (item is Accessory)
+            bool isSuccessMagic = item.DoMagic();
+            // Thank you C# No. It' not possible isSuccessMagic ? SuccessMethod : FailureMethod;
+            if (isSuccessMagic)
             {
-                bool result = DoMagic((Accessory)item);
-                Console.WriteLine(result);
+                SuccessMethod(isSuccessMagic);
             }
-            if (item is Weapon)
+            else
             {
-                bool result = DoMagic((Weapon)item);
-                Console.WriteLine(result);
-            }
-            if (item is Armor)
-            {
-                bool result = DoMagic((Armor)item);
-                Console.WriteLine(result);
+                FailureMethod(isSuccessMagic);
             }
         }
 
-        internal bool DoMagic(Accessory accessory)
+        internal void SuccessMethod(bool isSuccessMagic)
         {
-            int randomEnchance = Randomizer.GenerateRandomValue();
-
-            if (accessory.EnchanceLevel < accessory.SaveEnchanceLevel)
-            {
-                return true;
-            }
-
-            return randomEnchance <= accessory.EnchantChance;
+            Console.WriteLine("[Успешно] Количество попыток " + ItemCount + " " + isSuccessMagic);
         }
 
-        internal bool DoMagic(Weapon weapon)
+        internal void FailureMethod(bool isSuccessMagic)
         {
-            int randomEnchance = Randomizer.GenerateRandomValue();
-
-            if (weapon.EnchanceLevel < weapon.SaveEnchanceLevel)
-            {
-                return true;
-            }
-
-            return randomEnchance <= weapon.EnchantChance;
+            ++ItemCount;
+            Console.WriteLine("[Неуспешно] Количество попыток " + ItemCount + " " + isSuccessMagic);
         }
 
-        internal bool DoMagic(Armor armor)
+        internal void ResetCount()
         {
-            int randomEnchance = Randomizer.GenerateRandomValue();
-
-            if (armor.EnchanceLevel < armor.SaveEnchanceLevel)
-            {
-                return true;
-            }
-
-            return randomEnchance <= armor.EnchantChance;
+            ItemCount = 0;
         }
     }
 }

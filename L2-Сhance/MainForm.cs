@@ -29,13 +29,13 @@ namespace L2_Сhance
 
         private void ModificationButton_Click(object sender, EventArgs e)
         {
-            var item = itemFactory.GetItemByType<Item>(selectedItemType);
+            var item = itemFactory.GetItemByType(selectedItemType);
             if (item == null)
             {
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            modificationService.DoMagic(item);
+            modificationService.Processing(item);
         }
 
         private void LogEventSelectedItemHandler(object sender, string logMessage)

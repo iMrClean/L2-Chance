@@ -4,17 +4,12 @@ namespace L2_Сhance.Main.Model
 {
     internal class Weapon : Item
     {
-        public int SaveEnchanceLevel
+        protected override int GetSaveEnchangeLevel()
         {
-            get
-            {
-                return 4;
-            }
+            return 4;
         }
 
-        public ItemType ItemType { get; set; }
-
-        public int GetCurrentChance()
+        public override int GetCurrentChance()
         {
             int result = 100;
 
