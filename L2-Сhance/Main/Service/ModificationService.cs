@@ -7,6 +7,10 @@ namespace L2_Сhance.Main.Service
     {
         public int ItemCount { get; private set; }
 
+        public event EventHandler<string> LogEvent;
+
+        public event EventHandler<int> EnchanceLevelEvent;
+
         internal void Processing(Item item)
         {
             bool isSuccessMagic = item.DoMagic();
@@ -35,6 +39,16 @@ namespace L2_Сhance.Main.Service
         internal void ResetCount()
         {
             ItemCount = 0;
+        }
+
+        private void UpdateLogEvent(string logMessage)
+        {
+            LogEvent?.Invoke(this, logMessage);
+        }
+
+        public void UpdateEnchanceLevelEvent(Item item)
+        {
+            EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
         }
     }
 }

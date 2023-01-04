@@ -14,7 +14,7 @@ namespace L2_Сhance
 
         private ItemType selectedItemType;
 
-        public event EventHandler<string> LogEventSelectedItem;
+        public event EventHandler<string> LogSelectedItemEvent;
 
         private readonly ModificationService modificationService;
 
@@ -24,10 +24,10 @@ namespace L2_Сhance
             InitializeComponent();
             this.itemFactory = new ItemFactory();
             this.modificationService = new ModificationService();
-            this.LogEventSelectedItem += LogEventSelectedItemHandler;
+            this.LogSelectedItemEvent += LogSelectedItemEventHandler;
         }
 
-        private void ModificationButton_Click(object sender, EventArgs e)
+        private void ModificationButtonClick(object sender, EventArgs e)
         {
             var item = itemFactory.GetItemByType(selectedItemType);
             if (item == null)
@@ -38,29 +38,28 @@ namespace L2_Сhance
             modificationService.Processing(item);
         }
 
-        private void LogEventSelectedItemHandler(object sender, string logMessage)
+        private void AccessoryPictureBoxClick(object sender, EventArgs e)
+        {
+            LogSelectedItemEvent?.Invoke(this, "Выбран аксессуар");
+            selectedItemType = ItemType.ACCESSORY;
+        }
+
+        private void ArmorPictureBoxClick(object sender, EventArgs e)
+        {
+            LogSelectedItemEvent?.Invoke(this, "Выбран доспех");
+            selectedItemType = ItemType.ARMOR;
+        }
+
+        private void WeaponPictureBoxClick(object sender, EventArgs e)
+        {
+            LogSelectedItemEvent?.Invoke(this, "Выбран оружие");
+            selectedItemType = ItemType.WEAPON;
+        }
+        private void LogSelectedItemEventHandler(object sender, string logMessage)
         {
             logRichTextBox.SelectionColor = Color.Coral;
             logRichTextBox.AppendText(logMessage + "\n");
             logRichTextBox.ScrollToCaret();
-        }
-
-        private void AccessoryPictureBox_Click(object sender, EventArgs e)
-        {
-            LogEventSelectedItem?.Invoke(this, "Выбран аксессуар");
-            selectedItemType = ItemType.ACCESSORY;
-        }
-
-        private void ArmorPictureBox_Click(object sender, EventArgs e)
-        {
-            LogEventSelectedItem?.Invoke(this, "Выбран доспех");
-            selectedItemType = ItemType.ARMOR;
-        }
-
-        private void WeaponPictureBox_Click(object sender, EventArgs e)
-        {
-            LogEventSelectedItem?.Invoke(this, "Выбран оружие");
-            selectedItemType = ItemType.WEAPON;
         }
     }
 }
