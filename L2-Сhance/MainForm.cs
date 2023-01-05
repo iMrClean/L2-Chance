@@ -25,6 +25,7 @@ namespace L2_Сhance
             this.itemFactory = new ItemFactory();
             this.modificationService = new ModificationService();
             this.LogSelectedItemEvent += LogSelectedItemEventHandler;
+            modificationService.LogEvent += LogEventHandler;
         }
 
         private void ModificationButtonClick(object sender, EventArgs e)
@@ -59,6 +60,22 @@ namespace L2_Сhance
         {
             logRichTextBox.SelectionColor = Color.Coral;
             logRichTextBox.AppendText(logMessage + "\n");
+            logRichTextBox.ScrollToCaret();
+        }
+
+        private void LogEventHandler(object sender, string logMessage)
+        {
+            if (logMessage.Contains("[Успешно]"))
+            {
+                logRichTextBox.SelectionColor = Color.Green;
+                logRichTextBox.AppendText(logMessage + "\n");
+            }
+            else if (logMessage.Contains("[Неуспешно]"))
+            {
+                logRichTextBox.SelectionColor = Color.Red;
+                logRichTextBox.AppendText(logMessage + " Количество попыток : " + modificationService.ItemCount + "\n");
+            }
+            logRichTextBox.SelectionStart = logRichTextBox.Text.Length;
             logRichTextBox.ScrollToCaret();
         }
     }
