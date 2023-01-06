@@ -38,13 +38,13 @@ namespace L2_Сhance
 
         private void ModificationButtonClick(object sender, EventArgs e)
         {
-            RunProgressBar();
             item = itemFactory.GetItemByType(selectedItemType);
             if (item == null)
             {
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            RunProgressBar();
             modificationService.Processing(item);
         }
 
