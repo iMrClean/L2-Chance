@@ -6,6 +6,7 @@ namespace L2_Сhance.Main.Service
 {
     internal class WeaponService
     {
+
         private readonly WeaponRepository weaponRepository;
 
         public WeaponService(WeaponRepository weaponRepository) 

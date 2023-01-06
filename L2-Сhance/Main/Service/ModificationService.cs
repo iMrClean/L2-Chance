@@ -8,7 +8,7 @@ namespace L2_Сhance.Main.Service
     {
         private int tryCount = 1;
 
-        private ItemFactory itemFactory;
+        private readonly ItemFactory itemFactory;
 
         public ModificationService()
         {
@@ -26,7 +26,7 @@ namespace L2_Сhance.Main.Service
 
         public event EventHandler<int> EnchanceLevelEvent;
 
-        internal void Processing(Item item)
+        public void Processing(Item item)
         {
             bool isSuccessMagic = item.DoMagic();
             // Thank you C#. It's not possible isSuccessMagic ? SuccessMethod : FailureMethod;
@@ -40,14 +40,14 @@ namespace L2_Сhance.Main.Service
             }
         }
 
-        internal void SuccessMethod(Item item)
+        private void SuccessMethod(Item item)
         {
             item = itemFactory.SaveItem(item);
             UpdateEnchanceLevelEvent(item);
             UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
         }
 
-        internal void FailureMethod(Item item)
+        private void FailureMethod(Item item)
         {
             ++TryCount;
             item = itemFactory.DeleteItem(item);
@@ -55,7 +55,7 @@ namespace L2_Сhance.Main.Service
             UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
         }
 
-        internal void ResetCount()
+        public void ResetCount()
         {
             TryCount = 1;
         }
@@ -65,7 +65,7 @@ namespace L2_Сhance.Main.Service
             EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
         }
 
-        private void UpdateLogEvent(string logMessage)
+        public void UpdateLogEvent(string logMessage)
         {
             LogEvent?.Invoke(this, logMessage);
         }

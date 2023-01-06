@@ -8,6 +8,7 @@ namespace L2_Сhance.Main
 {
     internal class ItemFactory
     {
+
         private readonly AccessoryService accessoryService;
 
         private readonly WeaponService weaponService;

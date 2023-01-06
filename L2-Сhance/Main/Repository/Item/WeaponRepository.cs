@@ -5,6 +5,7 @@ namespace L2_Сhance.Main.Repository
 {
     internal class WeaponRepository
     {
+
         private static Weapon dbItem = new Weapon()
         {
             EnchanceLevel = 0,

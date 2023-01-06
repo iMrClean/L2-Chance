@@ -5,6 +5,7 @@ namespace L2_Сhance.Main.Repository
 {
     internal class ArmorRepository
     {
+
         private static Armor dbItem = new Armor()
         {
             EnchanceLevel = 0,

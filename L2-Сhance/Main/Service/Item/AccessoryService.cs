@@ -6,6 +6,7 @@ namespace L2_Сhance.Main.Service
 {
     internal class AccessoryService
     {
+
         private readonly AccessoryRepository accessoryRepository;
 
         public AccessoryService(AccessoryRepository accessoryRepository)

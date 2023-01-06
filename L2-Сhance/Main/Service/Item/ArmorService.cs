@@ -6,6 +6,7 @@ namespace L2_Сhance.Main.Service
 {
     internal class ArmorService
     {
+
         private readonly ArmorRepository armorRepository;
 
         public ArmorService(ArmorRepository armorRepository) 

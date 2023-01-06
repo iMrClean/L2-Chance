@@ -5,6 +5,7 @@ namespace L2_Сhance.Main.Repository
 {
     internal class AccessoryRepository
     {
+
         private static Accessory dbItem = new Accessory()
         {
             EnchanceLevel = 0,
