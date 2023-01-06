@@ -43,25 +43,20 @@ namespace L2_Сhance
             if (item == null)
             {
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ResetProgressBar();
                 return;
             }
             modificationService.Processing(item);
-            ResetProgressBar();
         }
 
         private void RunProgressBar()
         {
+            progressBar.Value = 0;
+
             for (int i = 0; i < progressBar.Maximum; i++)
             {
                 progressBar.Value++;
                 Thread.Sleep(10);
             }
-        }
-
-        private void ResetProgressBar()
-        {
-            progressBar.Value = 0;
         }
 
         private void AccessoryPictureBoxClick(object sender, EventArgs e)
