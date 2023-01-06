@@ -30,7 +30,7 @@
         {
             this.ModificationButton = new System.Windows.Forms.Button();
             this.currentLevel = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
             this.accessoryPictureBox = new System.Windows.Forms.PictureBox();
             this.armorPictureBox = new System.Windows.Forms.PictureBox();
@@ -63,12 +63,12 @@
             this.currentLevel.Text = "0";
             this.currentLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(215, 425);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(449, 23);
-            this.progressBar1.TabIndex = 2;
+            this.progressBar.Location = new System.Drawing.Point(215, 425);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(449, 23);
+            this.progressBar.TabIndex = 2;
             // 
             // logRichTextBox
             // 
@@ -127,7 +127,7 @@
             this.Controls.Add(this.armorPictureBox);
             this.Controls.Add(this.accessoryPictureBox);
             this.Controls.Add(this.logRichTextBox);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.currentLevel);
             this.Controls.Add(this.ModificationButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -145,7 +145,7 @@
 
         private System.Windows.Forms.Button ModificationButton;
         private System.Windows.Forms.Label currentLevel;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.RichTextBox logRichTextBox;
         private System.Windows.Forms.PictureBox accessoryPictureBox;
         private System.Windows.Forms.PictureBox armorPictureBox;

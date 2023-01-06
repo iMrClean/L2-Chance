@@ -5,6 +5,7 @@ using L2_Сhance.Main.Repository;
 using L2_Сhance.Main.Service;
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace L2_Сhance
@@ -37,13 +38,30 @@ namespace L2_Сhance
 
         private void ModificationButtonClick(object sender, EventArgs e)
         {
+            RunProgressBar();
             item = itemFactory.GetItemByType(selectedItemType);
             if (item == null)
             {
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResetProgressBar();
                 return;
             }
             modificationService.Processing(item);
+            ResetProgressBar();
+        }
+
+        private void RunProgressBar()
+        {
+            for (int i = 0; i < progressBar.Maximum; i++)
+            {
+                progressBar.Value++;
+                Thread.Sleep(10);
+            }
+        }
+
+        private void ResetProgressBar()
+        {
+            progressBar.Value = 0;
         }
 
         private void AccessoryPictureBoxClick(object sender, EventArgs e)
