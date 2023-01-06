@@ -8,7 +8,6 @@ namespace L2_Сhance.Main.Repository
         private static Accessory dbItem = new Accessory()
         {
             EnchanceLevel = 0,
-            EnchantChance = 100,
             ItemType = ItemType.ACCESSORY
         };
 
@@ -22,7 +21,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Accessory()
             {
                 EnchanceLevel = ++accessory.EnchanceLevel,
-                EnchantChance = accessory.EnchantChance = dbItem.GetCurrentChance(),
                 ItemType = ItemType.ACCESSORY
             };
             
@@ -34,7 +32,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Accessory()
             {
                 EnchanceLevel = 0,
-                EnchantChance = 100,
                 ItemType = ItemType.ACCESSORY
             };
 

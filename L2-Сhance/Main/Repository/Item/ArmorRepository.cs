@@ -8,7 +8,6 @@ namespace L2_Сhance.Main.Repository
         private static Armor dbItem = new Armor()
         {
             EnchanceLevel = 0,
-            EnchantChance = 100,
             ItemType = ItemType.ARMOR
         };
 
@@ -22,7 +21,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Armor()
             {
                 EnchanceLevel = ++armor.EnchanceLevel,
-                EnchantChance = armor.EnchantChance = dbItem.GetCurrentChance(),
                 ItemType = ItemType.ARMOR
             };
 
@@ -34,7 +32,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Armor()
             {
                 EnchanceLevel = 0,
-                EnchantChance = 100,
                 ItemType = ItemType.ARMOR
             };
 

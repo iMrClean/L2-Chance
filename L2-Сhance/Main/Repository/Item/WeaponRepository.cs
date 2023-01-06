@@ -8,7 +8,6 @@ namespace L2_Сhance.Main.Repository
         private static Weapon dbItem = new Weapon()
         {
             EnchanceLevel = 0,
-            EnchantChance = 100,
             ItemType = ItemType.WEAPON
         };
 
@@ -22,7 +21,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Weapon()
             {
                 EnchanceLevel = ++weapon.EnchanceLevel,
-                EnchantChance = weapon.EnchantChance = dbItem.GetCurrentChance(),
                 ItemType = ItemType.WEAPON
             };
 
@@ -34,7 +32,6 @@ namespace L2_Сhance.Main.Repository
             dbItem = new Weapon()
             {
                 EnchanceLevel = 0,
-                EnchantChance = 100,
                 ItemType = ItemType.WEAPON
             };
 

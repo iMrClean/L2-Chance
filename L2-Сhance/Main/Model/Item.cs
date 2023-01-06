@@ -6,7 +6,7 @@ namespace L2_Сhance.Main.Model
 {
     internal abstract class Item
     {
-        public int EnchantChance { get; set; }
+        //public int EnchantChance { get; set; }
 
         public int EnchanceLevel { get; set; }
 
@@ -21,7 +21,7 @@ namespace L2_Сhance.Main.Model
                 return true;
             }
 
-            return randomEnchance <= EnchantChance;
+            return randomEnchance <= GetCurrentChance();
         }
 
         protected abstract int GetSaveEnchangeLevel();
@@ -29,6 +29,6 @@ namespace L2_Сhance.Main.Model
         //Думаю стоит либо вынести это в утилити, либо придумать как быть.
         //Должен ли объект иметь свойство шанса заточки???, если мы его можем высчитывать в зависимости от типа
         //В готовом методе (думаю это что-то аналог GenerateRandomValue())
-        public abstract int GetCurrentChance();
+        protected abstract int GetCurrentChance();
     }
 }

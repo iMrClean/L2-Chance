@@ -9,29 +9,27 @@ namespace L2_Сhance.Main.Model
             return 1;
         }
 
-        public override int GetCurrentChance()
+        protected override int GetCurrentChance()
         {
             int result = 100;
 
-            if (EnchanceLevel == 1)
+            switch (EnchanceLevel)
             {
-                result -= 50;
-            }
-            else if (EnchanceLevel == 2)
-            {
-                result -= 60;
-            }
-            else if (EnchanceLevel == 3)
-            {
-                result -= 70;
-            }
-            else if (EnchanceLevel == 4)
-            {
-                result -= 50;
-            }
-            else if (EnchanceLevel == 5)
-            {
-                result -= 92;
+                case 1:
+                    result -= 50;
+                    break;
+                case 2:
+                    result -= 60;
+                    break;
+                case 3:
+                    result -= 70;
+                    break;
+                case 4:
+                    result -= 50;
+                    break;
+                case 5:
+                    result -= 92;
+                    break;
             }
 
             return result;
