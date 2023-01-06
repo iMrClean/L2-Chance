@@ -22,7 +22,7 @@ namespace L2_Сhance.Main.Service
         {
             return armorRepository.SaveItem(armor);
         }
-        public Armor DeleteItem(Armor armor)
+        public Armor DeleteItem()
         {
             return armorRepository.RemoveItem();
         }

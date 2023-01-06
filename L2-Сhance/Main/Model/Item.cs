@@ -1,4 +1,5 @@
 ﻿using L2_Сhance.Main.Enum;
+using L2_Сhance.Main.Service;
 using L2_Сhance.Main.Util;
 
 namespace L2_Сhance.Main.Model

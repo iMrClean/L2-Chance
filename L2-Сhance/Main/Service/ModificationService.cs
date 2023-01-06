@@ -1,16 +1,25 @@
 ﻿using L2_Сhance.Main.Model;
+using L2_Сhance.Main.Repository;
 using System;
 
 namespace L2_Сhance.Main.Service
 {
     internal class ModificationService
     {
-        private int itemCount = 1;
-        public int ItemCount
-        {
-            get { return itemCount; }
+        private int tryCount = 1;
 
-            private set { itemCount = value; }
+        private ItemFactory itemFactory;
+
+        public ModificationService()
+        {
+            itemFactory = new ItemFactory();
+        }
+
+        public int TryCount
+        {
+            get { return tryCount; }
+
+            private set { tryCount = value; }
         }
 
         public event EventHandler<string> LogEvent;
@@ -20,7 +29,7 @@ namespace L2_Сhance.Main.Service
         internal void Processing(Item item)
         {
             bool isSuccessMagic = item.DoMagic();
-            // Thank you C# No. It' not possible isSuccessMagic ? SuccessMethod : FailureMethod;
+            // Thank you C#. It's not possible isSuccessMagic ? SuccessMethod : FailureMethod;
             if (isSuccessMagic)
             {
                 SuccessMethod(item);
@@ -34,29 +43,33 @@ namespace L2_Сhance.Main.Service
         internal void SuccessMethod(Item item)
         {
             //TODO тут нужно сохранить это в БД и из сохраненного итема вытащить EnchanceLevel
-            UpdateLogEvent("[Успешно] Модификация на " + ++item.EnchanceLevel + " прошла успешно. Количество попыток " + ItemCount);
+            item = itemFactory.SaveItem(item);
+            UpdateEnchanceLevelEvent(item);
+            UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
         }
 
         internal void FailureMethod(Item item)
         {
-            ++ItemCount;
+            ++TryCount;
             //TODO тут нужно сохранить это в БД и из сохраненного итема вытащить EnchanceLevel
-            UpdateLogEvent("[Неуспешно] Модификация на " + ++item.EnchanceLevel + " прошла неуспешно. Количество попыток " + ItemCount);
+            item = itemFactory.DeleteItem(item);
+            UpdateEnchanceLevelEvent(item);
+            UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
         }
 
         internal void ResetCount()
         {
-            ItemCount = 1;
-        }
-
-        private void UpdateLogEvent(string logMessage)
-        {
-            LogEvent?.Invoke(this, logMessage);
+            TryCount = 1;
         }
 
         public void UpdateEnchanceLevelEvent(Item item)
         {
             EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
+        }
+
+        private void UpdateLogEvent(string logMessage)
+        {
+            LogEvent?.Invoke(this, logMessage);
         }
     }
 }

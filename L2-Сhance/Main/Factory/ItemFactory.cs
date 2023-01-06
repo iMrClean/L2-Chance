@@ -3,7 +3,6 @@ using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using L2_Сhance.Main.Service;
 using System;
-using System.Windows.Media;
 
 namespace L2_Сhance.Main
 {
@@ -26,22 +25,67 @@ namespace L2_Сhance.Main
         {
             Item item = null;
 
-            if (itemType == ItemType.UNDEFINED)
+            switch (itemType)
             {
-                item = null;
+                case ItemType.UNDEFINED:
+                    item = null;
+                    break;
+                case ItemType.ACCESSORY:
+                    item = accessoryService.GetItem();
+                    break;
+                case ItemType.WEAPON:
+                    item = weaponService.GetItem();
+                    break;
+                case ItemType.ARMOR:
+                    item = armorService.GetItem();
+                    break;
             }
-            else if (itemType == ItemType.ACCESSORY)
+
+            return item;
+        }
+
+        public Item SaveItem(Item item)
+        {
+            ItemType itemType = item.ItemType;
+
+            switch (itemType)
             {
-                item = accessoryService.GetItem();
+                case ItemType.UNDEFINED:
+                    throw new Exception("Ошибка при сохранении, тип item не определен");
+                case ItemType.ACCESSORY:
+                    item = accessoryService.SaveItem((Accessory)item);
+                    break;
+                case ItemType.WEAPON:
+                    item = weaponService.SaveItem((Weapon)item);
+                    break;
+                case ItemType.ARMOR:
+                    item = armorService.SaveItem((Armor)item);
+                    break;
             }
-            else if (itemType == ItemType.WEAPON)
+
+
+            return item;
+        }
+
+        public Item DeleteItem(Item item)
+        {
+            ItemType itemType = item.ItemType;
+
+            switch (itemType)
             {
-                item = weaponService.GetItem();
+                case ItemType.UNDEFINED:
+                    throw new Exception("Ошибка при удалении, тип item не определен");
+                case ItemType.ACCESSORY:
+                    item = accessoryService.DeleteItem();
+                    break;
+                case ItemType.WEAPON:
+                    item = weaponService.DeleteItem();
+                    break;
+                case ItemType.ARMOR:
+                    item = armorService.DeleteItem();
+                    break;
             }
-            else if (itemType == ItemType.ARMOR)
-            {
-                item = armorService.GetItem();
-            }
+
             return item;
         }
     }
