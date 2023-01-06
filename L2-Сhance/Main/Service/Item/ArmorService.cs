@@ -9,7 +9,7 @@ namespace L2_Сhance.Main.Service
 
         private readonly ArmorRepository armorRepository;
 
-        public ArmorService(ArmorRepository armorRepository) : base()
+        public ArmorService(ArmorRepository armorRepository)
         {
             this.armorRepository = armorRepository;
         }
