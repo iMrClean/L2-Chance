@@ -1,20 +1,17 @@
-﻿using L2_Сhance.Main;
-using L2_Сhance.Main.Enum;
+﻿using L2_Сhance.Main.Enum;
 using L2_Сhance.Main.Factory;
 using L2_Сhance.Main.Model;
-using L2_Сhance.Main.Repository;
-using L2_Сhance.Main.Service;
 using L2_Сhance.Main.Service.Item;
 using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace L2_Сhance
 {
     public partial class MainForm : Form
     {
+        #region Fields
         public int TryCount { get; private set; } = 1;
 
         private IAbstractService abstractService;
@@ -27,15 +24,15 @@ namespace L2_Сhance
 
         public event EventHandler<int> EnchanceLevelEvent;
 
-        public event EventHandler<int> ProgressEvent;
         public MainForm()
         {
             InitializeComponent();
             this.LogEvent += LogEventHandler;
             this.EnchanceLevelEvent += EnchanceLevelEventHandler;
-            this.ProgressEvent += ProgressEventHandler;
         }
+        #endregion
 
+        #region ButtonClick
         private void ModificationButtonClick(object sender, EventArgs e)
         {
             if (item == null)
@@ -43,38 +40,34 @@ namespace L2_Сhance
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             RunProgressBar();
+            
             bool isSuccessMagic = abstractService.DoMagic(item);
+            
             if (isSuccessMagic)
             {
-                SuccessMethod(item);
+                item = abstractService.SaveItem(item);
+                UpdateEnchanceLevelEvent(item);
+                UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
             }
             else
             {
-                FailureMethod();
+                ++TryCount;
+                item = abstractService.DeleteItem();
+                UpdateEnchanceLevelEvent(item);
+                UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
             }
         }
+        #endregion
 
-        private void SuccessMethod(AbstractItem item)
-        {
-            item = abstractService.SaveItem(item);
-            UpdateEnchanceLevelEvent(item);
-            UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
-        }
-
-        private void FailureMethod()
-        {
-            ++TryCount;
-            item = abstractService.DeleteItem();
-            UpdateEnchanceLevelEvent(item);
-            UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
-        }
-
+        #region HelpMethods
         public void ResetCount()
         {
             TryCount = 1;
         }
 
+        //TODO поправить
         private void RunProgressBar()
         {
             progressBar.Value = 0;
@@ -85,7 +78,9 @@ namespace L2_Сhance
                 Thread.Sleep(10);
             }
         }
+        #endregion
 
+        #region PictureBoxes
         private void AccessoryPictureBoxClick(object sender, EventArgs e)
         {
             selectedItemType = ItemType.ACCESSORY;
@@ -112,7 +107,9 @@ namespace L2_Сhance
             UpdateEnchanceLevelEvent(item);
             ResetCount();
         }
+        #endregion
 
+        #region Events
         private void UpdateEnchanceLevelEvent(AbstractItem item)
         {
             EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
@@ -128,7 +125,9 @@ namespace L2_Сhance
             abstractService = ServiceFactory.GetServiceByItemType(selectedItemType);
             return abstractService != null ? abstractService.GetItem() : null;
         }
+        #endregion
 
+        #region EventHanlers
         private void LogEventHandler(object sender, string logMessage)
         {
             if (logMessage.Contains("[Успешно]"))
@@ -164,14 +163,6 @@ namespace L2_Сhance
 
             currentLevel.Text = curr.ToString();
         }
-        
-        private void ProgressBarEventHandler(object sender, int a)
-        {
-
-        }
-        private void ProgressEventHandler(object sender, ProgressEventArgs e)
-        {
-            progressBar.Value += e.Progress;
-        }
+        #endregion
     }
 }
