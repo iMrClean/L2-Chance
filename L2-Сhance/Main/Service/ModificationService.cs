@@ -42,7 +42,6 @@ namespace L2_Сhance.Main.Service
 
         internal void SuccessMethod(Item item)
         {
-            //TODO тут нужно сохранить это в БД и из сохраненного итема вытащить EnchanceLevel
             item = itemFactory.SaveItem(item);
             UpdateEnchanceLevelEvent(item);
             UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
@@ -51,7 +50,6 @@ namespace L2_Сhance.Main.Service
         internal void FailureMethod(Item item)
         {
             ++TryCount;
-            //TODO тут нужно сохранить это в БД и из сохраненного итема вытащить EnchanceLevel
             item = itemFactory.DeleteItem(item);
             UpdateEnchanceLevelEvent(item);
             UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
