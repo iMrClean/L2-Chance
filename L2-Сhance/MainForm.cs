@@ -1,51 +1,78 @@
 ﻿using L2_Сhance.Main;
 using L2_Сhance.Main.Enum;
+using L2_Сhance.Main.Factory;
 using L2_Сhance.Main.Model;
 using L2_Сhance.Main.Repository;
 using L2_Сhance.Main.Service;
+using L2_Сhance.Main.Service.Item;
 using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace L2_Сhance
 {
     public partial class MainForm : Form
     {
+        public int TryCount { get; private set; } = 1;
 
-        private readonly ItemFactory itemFactory;
+        private IAbstractService abstractService;
 
-        private readonly ModificationService modificationService;
-
-        public event EventHandler<int> EnchanceLevelEvent;
-
-        public event EventHandler<string> LogSelectedItemEvent;
-
-        private Item item;
+        private AbstractItem item;
 
         private ItemType selectedItemType;
 
+        public event EventHandler<string> LogEvent;
+
+        public event EventHandler<int> EnchanceLevelEvent;
+
+        public event EventHandler<int> ProgressEvent;
         public MainForm()
         {
             InitializeComponent();
-            this.itemFactory = new ItemFactory();
-            this.modificationService = new ModificationService();
-            this.LogSelectedItemEvent += LogSelectedItemEventHandler;
-            this.EnchanceLevelEvent += EnchanceLevelHandler;
-            modificationService.LogEvent += LogEventHandler;
-            modificationService.EnchanceLevelEvent += EnchanceLevelHandler;
+            this.LogEvent += LogEventHandler;
+            this.EnchanceLevelEvent += EnchanceLevelEventHandler;
+            this.ProgressEvent += ProgressEventHandler;
         }
 
         private void ModificationButtonClick(object sender, EventArgs e)
         {
-            item = itemFactory.GetItemByType(selectedItemType);
             if (item == null)
             {
                 MessageBox.Show("Не выбран тип модификации", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             RunProgressBar();
-            modificationService.Processing(item);
+            bool isSuccessMagic = abstractService.DoMagic(item);
+            if (isSuccessMagic)
+            {
+                SuccessMethod(item);
+            }
+            else
+            {
+                FailureMethod();
+            }
+        }
+
+        private void SuccessMethod(AbstractItem item)
+        {
+            item = abstractService.SaveItem(item);
+            UpdateEnchanceLevelEvent(item);
+            UpdateLogEvent("[Успешно] Модификация на " + item.EnchanceLevel + " прошла успешно. Количество попыток " + TryCount);
+        }
+
+        private void FailureMethod()
+        {
+            ++TryCount;
+            item = abstractService.DeleteItem();
+            UpdateEnchanceLevelEvent(item);
+            UpdateLogEvent("[Неуспешно] Модификация прошла неуспешно. Количество попыток " + TryCount);
+        }
+
+        public void ResetCount()
+        {
+            TryCount = 1;
         }
 
         private void RunProgressBar()
@@ -61,54 +88,45 @@ namespace L2_Сhance
 
         private void AccessoryPictureBoxClick(object sender, EventArgs e)
         {
-            LogSelectedItemEvent?.Invoke(this, "Выбран аксессуар");
             selectedItemType = ItemType.ACCESSORY;
-            item = itemFactory.GetItemByType(selectedItemType);
-            EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
-            modificationService.ResetCount();
+            UpdateLogEvent("Выбран аксессуар");
+            item = GetSelectedItem();
+            UpdateEnchanceLevelEvent(item);
+            ResetCount();
         }
 
         private void ArmorPictureBoxClick(object sender, EventArgs e)
         {
-            LogSelectedItemEvent?.Invoke(this, "Выбран доспех");
             selectedItemType = ItemType.ARMOR;
-            item = itemFactory.GetItemByType(selectedItemType);
-            EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
-            modificationService.ResetCount();
+            UpdateLogEvent("Выбран доспех");
+            item = GetSelectedItem();
+            UpdateEnchanceLevelEvent(item);
+            ResetCount();
         }
 
         private void WeaponPictureBoxClick(object sender, EventArgs e)
         {
-            LogSelectedItemEvent?.Invoke(this, "Выбран оружие");
             selectedItemType = ItemType.WEAPON;
-            item = itemFactory.GetItemByType(selectedItemType);
+            UpdateLogEvent("Выбрано оружие");
+            item = GetSelectedItem();
+            UpdateEnchanceLevelEvent(item);
+            ResetCount();
+        }
+
+        private void UpdateEnchanceLevelEvent(AbstractItem item)
+        {
             EnchanceLevelEvent?.Invoke(this, item.EnchanceLevel);
-            modificationService.ResetCount();
         }
 
-        private void EnchanceLevelHandler(object sender, int curr)
+        private void UpdateLogEvent(string logMessage)
         {
-            if (curr == 0)
-            {
-                currentLevel.ForeColor = Color.Green;
-            }
-            else if (curr > 0 && curr < 5)
-            {
-                currentLevel.ForeColor = Color.Gold;
-            }
-            else 
-            { 
-                currentLevel.ForeColor = Color.DarkRed;
-            }
-
-            currentLevel.Text = curr.ToString();
+            LogEvent?.Invoke(this, logMessage);
         }
 
-        private void LogSelectedItemEventHandler(object sender, string logMessage)
+        private AbstractItem GetSelectedItem()
         {
-            logRichTextBox.SelectionColor = Color.Coral;
-            logRichTextBox.AppendText(logMessage + "\n");
-            logRichTextBox.ScrollToCaret();
+            abstractService = ServiceFactory.GetServiceByItemType(selectedItemType);
+            return abstractService != null ? abstractService.GetItem() : null;
         }
 
         private void LogEventHandler(object sender, string logMessage)
@@ -120,9 +138,40 @@ namespace L2_Сhance
             else if (logMessage.Contains("[Неуспешно]"))
             {
                 logRichTextBox.SelectionColor = Color.Red;
+            } 
+            else
+            {
+                logRichTextBox.SelectionColor = Color.Coral;
             }
             logRichTextBox.AppendText(logMessage + "\n");
             logRichTextBox.ScrollToCaret();
+        }
+
+        private void EnchanceLevelEventHandler(object sender, int curr)
+        {
+            if (curr == 0)
+            {
+                currentLevel.ForeColor = Color.Green;
+            }
+            else if (curr > 0 && curr < 5)
+            {
+                currentLevel.ForeColor = Color.Gold;
+            }
+            else
+            {
+                currentLevel.ForeColor = Color.DarkRed;
+            }
+
+            currentLevel.Text = curr.ToString();
+        }
+        
+        private void ProgressBarEventHandler(object sender, int a)
+        {
+
+        }
+        private void ProgressEventHandler(object sender, ProgressEventArgs e)
+        {
+            progressBar.Value += e.Progress;
         }
     }
 }

@@ -2,14 +2,14 @@
 
 namespace L2_Сhance.Main.Model
 {
-    internal class Armor : Item
+    internal class Armor : AbstractItem
     {
-        protected override int GetSaveEnchangeLevel()
+        public override int GetSaveEnchangeLevel()
         {
             return 4;
         }
 
-        protected override int GetCurrentChance()
+        public override int GetCurrentChance()
         {
             int result = 100;
 

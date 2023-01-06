@@ -54,7 +54,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Enum\ItemType.cs" />
-    <Compile Include="Main\Factory\ItemFactory.cs" />
+    <Compile Include="Main\Example\FactoryMethod.cs" />
+    <Compile Include="Main\Factory\ServiceFactory.cs" />
+    <Compile Include="Main\Model\AbstractItem.cs" />
     <Compile Include="Main\Model\Item\Accessory.cs" />
     <Compile Include="Main\Model\Item\Armor.cs" />
     <Compile Include="Main\Model\Item.cs" />
@@ -62,9 +64,10 @@
     <Compile Include="Main\Repository\Item\AccessoryRepository.cs" />
     <Compile Include="Main\Repository\Item\ArmorRepository.cs" />
     <Compile Include="Main\Repository\Item\WeaponRepository.cs" />
+    <Compile Include="Main\Service\AbstractService.cs" />
     <Compile Include="Main\Service\Item\AccessoryService.cs" />
     <Compile Include="Main\Service\Item\ArmorService.cs" />
-    <Compile Include="Main\Service\ModificationService.cs" />
+    <Compile Include="Main\Service\IAbstractService.cs" />
     <Compile Include="Main\Service\Item\WeaponService.cs" />
     <Compile Include="Main\Util\Randomizer.cs" />
     <Compile Include="Program.cs" />

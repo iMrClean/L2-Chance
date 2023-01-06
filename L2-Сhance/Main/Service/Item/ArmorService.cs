@@ -4,26 +4,26 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class ArmorService
+    internal class ArmorService : AbstractService<Armor>
     {
 
         private readonly ArmorRepository armorRepository;
 
-        public ArmorService(ArmorRepository armorRepository) 
+        public ArmorService(ArmorRepository armorRepository) : base()
         {
             this.armorRepository = armorRepository;
         }
 
-        public Armor GetItem()
+        public override Armor GetItem()
         {
             return armorRepository.GetItem();
         }
 
-        public Armor SaveItem(Armor armor)
+        public override Armor SaveItem(Armor armor)
         {
             return armorRepository.SaveItem(armor);
         }
-        public Armor DeleteItem()
+        public override Armor DeleteItem()
         {
             return armorRepository.DeleteItem();
         }

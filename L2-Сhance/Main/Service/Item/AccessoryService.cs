@@ -4,7 +4,7 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class AccessoryService
+    internal class AccessoryService : AbstractService<Accessory>
     {
 
         private readonly AccessoryRepository accessoryRepository;
@@ -14,16 +14,16 @@ namespace L2_Сhance.Main.Service
             this.accessoryRepository = accessoryRepository;
         }
 
-        public Accessory GetItem()
+        public override Accessory GetItem()
         {
             return accessoryRepository.GetItem();
         }
 
-        public Accessory SaveItem(Accessory accessory)
+        public override Accessory SaveItem(Accessory accessory)
         {
             return accessoryRepository.SaveItem(accessory);
         }
-        public Accessory DeleteItem()
+        public override Accessory DeleteItem()
         {
             return accessoryRepository.DeleteItem();
         }

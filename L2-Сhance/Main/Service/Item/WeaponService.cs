@@ -4,7 +4,7 @@ using System;
 
 namespace L2_Сhance.Main.Service
 {
-    internal class WeaponService
+    internal class WeaponService : AbstractService<Weapon>
     {
 
         private readonly WeaponRepository weaponRepository;
@@ -14,16 +14,16 @@ namespace L2_Сhance.Main.Service
             this.weaponRepository = weaponRepository;
         }
 
-        public Weapon GetItem()
+        public override Weapon GetItem()
         {
             return weaponRepository.GetItem();
         }
 
-        public Weapon SaveItem(Weapon weapon)
+        public override Weapon SaveItem(Weapon weapon)
         {
             return weaponRepository.SaveItem(weapon);
         }
-        public Weapon DeleteItem()
+        public override Weapon DeleteItem()
         {
             return weaponRepository.DeleteItem();
         }
