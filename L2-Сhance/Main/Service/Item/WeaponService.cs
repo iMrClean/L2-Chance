@@ -24,7 +24,7 @@ namespace L2_Сhance.Main.Service
         }
         public Weapon DeleteItem()
         {
-            return weaponRepository.RemoveItem();
+            return weaponRepository.DeleteItem();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace L2_Сhance.Main.Service
         }
         public Armor DeleteItem()
         {
-            return armorRepository.RemoveItem();
+            return armorRepository.DeleteItem();
         }
     }
 }

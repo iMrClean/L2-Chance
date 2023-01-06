@@ -24,7 +24,7 @@ namespace L2_Сhance.Main.Service
         }
         public Accessory DeleteItem()
         {
-            return accessoryRepository.RemoveItem();
+            return accessoryRepository.DeleteItem();
         }
     }
 }

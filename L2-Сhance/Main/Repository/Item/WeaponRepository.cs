@@ -29,7 +29,7 @@ namespace L2_Сhance.Main.Repository
             return dbItem;
         }
 
-        public Weapon RemoveItem()
+        public Weapon DeleteItem()
         {
             dbItem = new Weapon()
             {

@@ -29,7 +29,7 @@ namespace L2_Сhance.Main.Repository
             return dbItem;
         }
 
-        public Accessory RemoveItem()
+        public Accessory DeleteItem()
         {
             dbItem = new Accessory()
             {

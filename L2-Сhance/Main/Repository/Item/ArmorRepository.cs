@@ -29,7 +29,7 @@ namespace L2_Сhance.Main.Repository
             return dbItem;
         }
 
-        public Armor RemoveItem()
+        public Armor DeleteItem()
         {
             dbItem = new Armor()
             {
