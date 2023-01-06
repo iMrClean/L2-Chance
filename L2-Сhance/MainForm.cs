@@ -13,17 +13,17 @@ namespace L2_Сhance
     public partial class MainForm : Form
     {
 
-        private ItemType selectedItemType;
-
-        public event EventHandler<string> LogSelectedItemEvent;
+        private readonly ItemFactory itemFactory;
 
         private readonly ModificationService modificationService;
 
-        private readonly ItemFactory itemFactory;
-
         public event EventHandler<int> EnchanceLevelEvent;
 
-        Item item;
+        public event EventHandler<string> LogSelectedItemEvent;
+
+        private Item item;
+
+        private ItemType selectedItemType;
 
         public MainForm()
         {
@@ -31,9 +31,9 @@ namespace L2_Сhance
             this.itemFactory = new ItemFactory();
             this.modificationService = new ModificationService();
             this.LogSelectedItemEvent += LogSelectedItemEventHandler;
+            this.EnchanceLevelEvent += EnchanceLevelHandler;
             modificationService.LogEvent += LogEventHandler;
             modificationService.EnchanceLevelEvent += EnchanceLevelHandler;
-            this.EnchanceLevelEvent += EnchanceLevelHandler;
         }
 
         private void ModificationButtonClick(object sender, EventArgs e)
