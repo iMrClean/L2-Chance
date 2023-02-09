@@ -5,6 +5,7 @@
         UNDEFINED,
         ACCESSORY,
         WEAPON,
-        ARMOR
+        ARMOR,
+        VENIR
     }
 }

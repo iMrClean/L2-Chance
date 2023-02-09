@@ -16,19 +16,19 @@ namespace L2_Сhance.Main.Model
             switch (EnchanceLevel)
             {
                 case 4:
-                    result -= 70;
+                    result -= 67;
                     break;
                 case 5:
-                    result -= 75;
+                    result -= 85;
                     break;
                 case 6:
-                    result -= 80;
+                    result -= 85;
                     break;
                 case 7:
                     result -= 85;
                     break;
                 case 8:
-                    result -= 90;
+                    result -= 88;
                     break;
                 case 9:
                     result -= 95;

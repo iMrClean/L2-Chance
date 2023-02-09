@@ -93,6 +93,16 @@ namespace L2_Сhance.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Venir {
+            get {
+                object obj = ResourceManager.GetObject("Venir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weapon {
             get {
                 object obj = ResourceManager.GetObject("Weapon", resourceCulture);

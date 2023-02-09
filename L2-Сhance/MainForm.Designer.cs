@@ -35,9 +35,11 @@
             this.accessoryPictureBox = new System.Windows.Forms.PictureBox();
             this.armorPictureBox = new System.Windows.Forms.PictureBox();
             this.weaponPictureBox = new System.Windows.Forms.PictureBox();
+            this.venirPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.accessoryPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.armorPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.venirPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // ModificationButton
@@ -117,12 +119,25 @@
             this.weaponPictureBox.TabStop = false;
             this.weaponPictureBox.Click += new System.EventHandler(this.WeaponPictureBoxClick);
             // 
+            // venirPictureBox
+            // 
+            this.venirPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.venirPictureBox.Image = global::L2_Сhance.Properties.Resources.Venir;
+            this.venirPictureBox.Location = new System.Drawing.Point(509, 100);
+            this.venirPictureBox.Name = "venirPictureBox";
+            this.venirPictureBox.Size = new System.Drawing.Size(40, 40);
+            this.venirPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.venirPictureBox.TabIndex = 9;
+            this.venirPictureBox.TabStop = false;
+            this.venirPictureBox.Click += new System.EventHandler(this.VenirPictureBoxClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::L2_Сhance.Properties.Resources.MainForm;
             this.ClientSize = new System.Drawing.Size(874, 641);
+            this.Controls.Add(this.venirPictureBox);
             this.Controls.Add(this.weaponPictureBox);
             this.Controls.Add(this.armorPictureBox);
             this.Controls.Add(this.accessoryPictureBox);
@@ -137,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.accessoryPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.armorPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.venirPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -150,6 +166,7 @@
         private System.Windows.Forms.PictureBox accessoryPictureBox;
         private System.Windows.Forms.PictureBox armorPictureBox;
         private System.Windows.Forms.PictureBox weaponPictureBox;
+        private System.Windows.Forms.PictureBox venirPictureBox;
     }
 }
 

@@ -107,6 +107,14 @@ namespace L2_Сhance
             UpdateEnchanceLevelEvent(item);
             ResetCount();
         }
+        private void VenirPictureBoxClick(object sender, EventArgs e)
+        {
+            selectedItemType = ItemType.VENIR;
+            UpdateLogEvent("Выбран бенир");
+            item = GetSelectedItem();
+            UpdateEnchanceLevelEvent(item);
+            ResetCount();
+        }
         #endregion
 
         #region Events
@@ -123,7 +131,7 @@ namespace L2_Сhance
         private AbstractItem GetSelectedItem()
         {
             abstractService = ServiceFactory.GetServiceByItemType(selectedItemType);
-            return abstractService != null ? abstractService.GetItem() : null;
+            return abstractService?.GetItem();
         }
         #endregion
 

@@ -2,6 +2,7 @@
 using L2_Сhance.Main.Repository;
 using L2_Сhance.Main.Service.Item;
 using L2_Сhance.Main.Service;
+using L2_Сhance.Main.Repository.Item;
 
 namespace L2_Сhance.Main.Factory
 {
@@ -17,6 +18,8 @@ namespace L2_Сhance.Main.Factory
                     return new ArmorService(new ArmorRepository());
                 case ItemType.WEAPON:
                     return new WeaponService(new WeaponRepository());
+                case ItemType.VENIR:
+                    return new VenirService(new VenirRepository());
                 default:
                     return null;
             }
